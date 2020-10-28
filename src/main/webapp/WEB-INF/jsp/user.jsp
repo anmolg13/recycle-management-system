@@ -5,11 +5,6 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>User Home Page</title>
-<style>
-  body{
-  	background-color:cyan;
-  }
-</style>
 </head>
 <body>
 <h1>Home Page for User</h1>
