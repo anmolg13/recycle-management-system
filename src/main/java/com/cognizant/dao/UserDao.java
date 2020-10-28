@@ -1,21 +1,9 @@
 package com.cognizant.dao;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Repository;
+import com.cognizant.model.User;
 
-@Repository
-public class UserDao {
-	@Autowired
-    JdbcTemplate template;    
+public interface UserDao {    
     
-	public void setTemplate(JdbcTemplate template) {    
-	    this.template = template;    
-	}    
-	public String validate(String email){    
-	    String sql="select password from user where email="+email; 
-	    String password=template.queryForObject(sql, String.class);
-	    return password;    
-	}
-
+	public int insertIntoDb(User user);
+	public String validate(String email);
 }
