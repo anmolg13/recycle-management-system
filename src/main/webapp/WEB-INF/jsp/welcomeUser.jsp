@@ -7,6 +7,6 @@ My First Web App
 <body>
 
 Welcome!! 
-
+<a href="/buyer">Go to Buyer's Home Page</a>
 </body>
 </html>

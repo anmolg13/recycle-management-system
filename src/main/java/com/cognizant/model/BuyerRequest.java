@@ -3,43 +3,39 @@ package com.cognizant.model;
 import java.util.Date;
 
 public class BuyerRequest {
-	private int requestId;
+	private Integer requestId;
 	private String buyerEmail;
-	private int amount;
+	private Integer amount;
+	private Integer quantity;
 	private String location;
+	private Date requestDate;
+	private Date requiredDate;
 	private Date paymentDate;
 	private String status;
-	private int paidAmount;
-	private int buyerId;
-	
-	public BuyerRequest(int requestId, String buyerEmail, int amount, String location, Date paymentDate, String status,
-			int paidAmount, int buyerId) {
-		super();
-		this.requestId = requestId;
-		this.buyerEmail = buyerEmail;
-		this.amount = amount;
-		this.location = location;
-		this.paymentDate = paymentDate;
-		this.status = status;
-		this.paidAmount = paidAmount;
-		this.buyerId = buyerId;
-	}
-	public int getRequestId() {
+	private Integer paidAmount;
+	private Integer buyerId;
+	public Integer getRequestId() {
 		return requestId;
 	}
-	public void setRequestId(int requestId) {
+	public void setRequestId(Integer requestId) {
 		this.requestId = requestId;
 	}
 	public String getBuyerEmail() {
 		return buyerEmail;
 	}
+	public Integer getQuantity() {
+		return quantity;
+	}
+	public void setQuantity(Integer quantity) {
+		this.quantity = quantity;
+	}
 	public void setBuyerEmail(String buyerEmail) {
 		this.buyerEmail = buyerEmail;
 	}
-	public int getAmount() {
+	public Integer getAmount() {
 		return amount;
 	}
-	public void setAmount(int amount) {
+	public void setAmount(Integer amount) {
 		this.amount = amount;
 	}
 	public String getLocation() {
@@ -47,6 +43,18 @@ public class BuyerRequest {
 	}
 	public void setLocation(String location) {
 		this.location = location;
+	}
+	public Date getRequestDate() {
+		return requestDate;
+	}
+	public void setRequestDate(Date requestDate) {
+		this.requestDate = requestDate;
+	}
+	public Date getRequiredDate() {
+		return requiredDate;
+	}
+	public void setRequiredDate(Date requiredDate) {
+		this.requiredDate = requiredDate;
 	}
 	public Date getPaymentDate() {
 		return paymentDate;
@@ -60,16 +68,18 @@ public class BuyerRequest {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	public int getPaidAmount() {
+	public Integer getPaidAmount() {
 		return paidAmount;
 	}
-	public void setPaidAmount(int paidAmount) {
+	public void setPaidAmount(Integer paidAmount) {
 		this.paidAmount = paidAmount;
 	}
-	public int getBuyerId() {
+	public Integer getBuyerId() {
 		return buyerId;
 	}
-	public void setBuyerId(int buyerId) {
+	public void setBuyerId(Integer buyerId) {
 		this.buyerId = buyerId;
 	}
+	
+	
 }

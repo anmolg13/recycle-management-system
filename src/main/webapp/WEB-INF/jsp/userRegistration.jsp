@@ -14,34 +14,27 @@
 <h1>User Registration Form</h1>
 <form:form onsubmit="return validate()" method="POST" action="registerUser" modelAttribute="user">
 	<table>
-		<tr>
-			<td><form:hidden path="id" id="id"/></td>
-		</tr>
+		
 		<tr>
 			<td><form:label path="firstName">First Name: </form:label></td>
 			<td><form:input path="firstName" id="firstName"/></td>
-			<td><form:errors path="firstName"/></td>
 		</tr>
 		<tr>
 			<td><form:label path="lastName">Last Name: </form:label></td>
 			<td><form:input path="lastName" id="lastName"/></td>
-			<td><form:errors path="lastName"/></td>
 			
 		</tr>
 		<tr>
 			<td><form:label path="phoneNumber">Phone Number: </form:label></td>
 			<td><form:input path="phoneNumber" id="phoneNumber"/></td>
-			<td><form:errors path="phoneNumber"/></td>
 		</tr>
 		<tr>
 			<td><form:label path="email">Email Id: </form:label></td>
 			<td><form:input path="email" id="email"/></td>
-			<td><form:errors path="email"/></td>
 		</tr>
 		<tr>
 			<td><form:label path="password">Password: </form:label></td>
 			<td><form:password path="password" id="password"/></td>
-			<td><form:errors path="password"/></td>
 		</tr>
 		<tr>
 			<td><form:label path="gender">Gender: </form:label></td>

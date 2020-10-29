@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cognizant.dao.UserDao;
+import com.cognizant.model.BuyerRequest;
 import com.cognizant.model.User;
 
 @Service
@@ -20,6 +21,10 @@ public class UserService {
 		if(password!=null && password.equals(pass))
 			return true;
 		else return false;
+	}
+	
+	public void insertBuyerRequest(BuyerRequest buyerRequest,String email) {
+		userDao.insertBuyerRequest(buyerRequest,email);
 	}
 
 }
