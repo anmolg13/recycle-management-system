@@ -12,7 +12,7 @@
 <body>
 
 <h1>User Registration Form</h1>
-<form:form onsubmit="return validate()" method="POST" action="RegisterUser" modelAttribute="user">
+<form:form onsubmit="return validate()" method="POST" action="registerUser" modelAttribute="user">
 	<table>
 		<tr>
 			<td><form:hidden path="id" id="id"/></td>

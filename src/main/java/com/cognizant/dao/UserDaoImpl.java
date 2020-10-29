@@ -25,7 +25,7 @@ public class UserDaoImpl implements UserDao{
 	}
     
 	public String validate(String email){    
-	    String sql="select password from user where email="+email; 
+	    String sql="select password from user where email= '"+email+"'"; 
 	    String password=template.queryForObject(sql, String.class);
 	    return password;    
 	}

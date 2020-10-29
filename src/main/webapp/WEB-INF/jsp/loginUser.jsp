@@ -11,7 +11,7 @@
 </head>
 <body>
 	<font color="red">${message}</font>
-	<form method="post" action="/login">
+	<form method="post" action="/loginUser">
 		Email: <input type="text" name="email" /> Password: <input
 			type="password" name="password" /> <input type="submit" />
 	</form>

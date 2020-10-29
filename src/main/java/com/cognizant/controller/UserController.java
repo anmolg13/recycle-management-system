@@ -37,51 +37,50 @@ public class UserController {
 		return list;
 	}
 	
-	@RequestMapping(value="/UserHomePage",method=RequestMethod.GET)
+	@RequestMapping(value="/userHomePage",method=RequestMethod.GET)
 	public String homePage(ModelMap model) {
 		return "user";
 	}
 	
-	@RequestMapping(value="/RegisterUser",method=RequestMethod.GET)
+	@RequestMapping(value="/registerUser",method=RequestMethod.GET)
 	public String registrationPage(@ModelAttribute("user") User user) {
-		System.out.print("Here");
-		return "user-registration";
+		return "userRegistration";
 	}
 	
-	@RequestMapping(value="/RegisterUser", method=RequestMethod.POST)
+	@RequestMapping(value="/registerUser", method=RequestMethod.POST)
 	public String registrationValidation(@Valid @ModelAttribute("user") User user,BindingResult result,ModelMap model) {
 		LOGGER.info("Start");
 		if(result.hasErrors()) {
 			System.out.println("errors");
 			System.out.println(result.getAllErrors());
 			LOGGER.info("end");
-			return "user-registration";
+			return "userRegistration";
 			
 		}
 		else {
 			service.insertIntoDb(user);
 			LOGGER.info("end");
-			return "user-registration-successful";
+			return "userRegistrationSuccessful";
 		}
 	}
 	
-	@RequestMapping(value="/login",method=RequestMethod.GET)
+	@RequestMapping(value="/loginUser",method=RequestMethod.GET)
 	public String showLoginPage(ModelMap model) {
 		//model.put("name",name);
-		return "login";
+		return "loginUser";
 	}
-	@RequestMapping(value="/login",method=RequestMethod.POST)
+	@RequestMapping(value="/loginUser",method=RequestMethod.POST)
 	public String showWelcomePage(ModelMap model,@RequestParam String email,@RequestParam String password) {
 		boolean isValidUser=service.validateUser(email, password);
 		if(!isValidUser)
 			{
 			model.put("message","invalid Credentials");
-			return "login";
+			return "loginUser";
 			}
 		
 		//model.put("name",email);
 		//model.put("password",password);
-		return "welcome";
+		return "welcomeUser";
 	}
 	
 	

@@ -4,11 +4,13 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>User Home Page</title>
+<title>Insert title here</title>
 </head>
 <body>
-<h1>Home Page for User</h1>
-<a href="/registerUser">Click here to register</a>   |   <a href="/loginUser">Click here to login</a>
-
+<div align="center">
+<form action="managerRegForm">
+<input type="submit" value="Register">
+</form>
+</div>
 </body>
 </html>

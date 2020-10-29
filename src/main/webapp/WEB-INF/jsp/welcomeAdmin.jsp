@@ -4,11 +4,9 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>User Home Page</title>
+<title>Welcome Admin</title>
 </head>
 <body>
-<h1>Home Page for User</h1>
-<a href="/registerUser">Click here to register</a>   |   <a href="/loginUser">Click here to login</a>
-
+Hey ${username} welcome to the Admin Page.
 </body>
 </html>

@@ -1,22 +1,34 @@
 package com.cognizant.model;
 
+import javax.validation.constraints.NotNull;
+
 public class Admin {
-	private String email;
+
+	@NotNull(message = "Username cannot be empty")
+	private String username;
+
+	@NotNull(message = "Password cannot be empty")
 	private String password;
-	public Admin(String email, String password) {
+
+	public Admin(@NotNull(message = "Username cannot be empty") String username,
+			@NotNull(message = "Password cannot be empty") String password) {
 		super();
-		this.email = email;
+		this.username = username;
 		this.password = password;
 	}
-	public String getEmail() {
-		return email;
+
+	public String getUsername() {
+		return username;
 	}
-	public void setEmail(String email) {
-		this.email = email;
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
+
 	public String getPassword() {
 		return password;
 	}
+
 	public void setPassword(String password) {
 		this.password = password;
 	}
