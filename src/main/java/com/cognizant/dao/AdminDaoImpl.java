@@ -1,8 +1,13 @@
 package com.cognizant.dao;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+
+import com.cognizant.model.BuyerRequest;
 
 @Repository
 public class AdminDaoImpl implements AdminDao {
@@ -18,4 +23,9 @@ public class AdminDaoImpl implements AdminDao {
 	    
 	}
 
+	public List<BuyerRequest> viewBuyerOrders() {
+		String sql="select * from buyer_request order by buyer_id ";
+		List<BuyerRequest> orders=template.query(sql, new BeanPropertyRowMapper(BuyerRequest.class));
+		return orders;
+	}
 }

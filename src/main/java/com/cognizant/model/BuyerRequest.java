@@ -1,6 +1,9 @@
 package com.cognizant.model;
 
+import java.time.LocalDate;
 import java.util.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 public class BuyerRequest {
 	private Integer requestId;
@@ -8,14 +11,24 @@ public class BuyerRequest {
 	private Integer amount;
 	private Integer quantity;
 	private String location;
-	private Date requestDate;
-	private Date requiredDate;
-	private Date paymentDate;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate requestDate;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate requiredDate;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate paymentDate;
 	private String status;
 	private Integer paidAmount;
 	private Integer buyerId;
 	public Integer getRequestId() {
 		return requestId;
+	}
+	@Override
+	public String toString() {
+		return "BuyerRequest [requestId=" + requestId + ", buyerEmail=" + buyerEmail + ", amount=" + amount
+				+ ", quantity=" + quantity + ", location=" + location + ", requestDate=" + requestDate
+				+ ", requiredDate=" + requiredDate + ", paymentDate=" + paymentDate + ", status=" + status
+				+ ", paidAmount=" + paidAmount + ", buyerId=" + buyerId + "]";
 	}
 	public void setRequestId(Integer requestId) {
 		this.requestId = requestId;
@@ -44,22 +57,22 @@ public class BuyerRequest {
 	public void setLocation(String location) {
 		this.location = location;
 	}
-	public Date getRequestDate() {
+	public LocalDate getRequestDate() {
 		return requestDate;
 	}
-	public void setRequestDate(Date requestDate) {
+	public void setRequestDate(LocalDate requestDate) {
 		this.requestDate = requestDate;
 	}
-	public Date getRequiredDate() {
+	public LocalDate getRequiredDate() {
 		return requiredDate;
 	}
-	public void setRequiredDate(Date requiredDate) {
+	public void setRequiredDate(LocalDate requiredDate) {
 		this.requiredDate = requiredDate;
 	}
-	public Date getPaymentDate() {
+	public LocalDate getPaymentDate() {
 		return paymentDate;
 	}
-	public void setPaymentDate(Date paymentDate) {
+	public void setPaymentDate(LocalDate paymentDate) {
 		this.paymentDate = paymentDate;
 	}
 	public String getStatus() {

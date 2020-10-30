@@ -1,6 +1,8 @@
 package com.cognizant.dao;
 
 import java.sql.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,11 +49,10 @@ public class UserDaoImpl implements UserDao{
 		User user = (User) template.queryForObject(query1, new BeanPropertyRowMapper(User.class));
 		//System.out.print(user.getId());
 		int id=user.getId();
-		java.sql.Date date=new Date(vendorRequest.getRequiredDate().getTime());
-		java.util.Date todayDate=new java.util.Date();
-		java.sql.Date requestDate = new java.sql.Date(todayDate.getTime());
-		java.sql.Timestamp sqlTime=new java.sql.Timestamp(vendorRequest.getTime().getTime());
-		String query="insert into vendor_request values("+vendorRequest.getRequestId()+",'"+email+"',"+vendorRequest.getTypeOfOrg()+","+vendorRequest.getAmount()+",'"+vendorRequest.getLocation()+"','"+requestDate+"','"+date+"','New',"+ sqlTime+","+id+")";
+		LocalDate requestDate=LocalDate.now();
+		String time=vendorRequest.getTime();
+		time=time.replaceAll(":","");
+		String query="insert into vendor_request values("+vendorRequest.getRequestId()+",'"+email+"','"+vendorRequest.getTypeOfOrg()+"',"+vendorRequest.getAmount()+",'"+vendorRequest.getLocation()+"','"+requestDate+"','"+vendorRequest.getRequiredDate()+"','New','"+time+"',"+id+")";
 		return template.update(query);
 	}
 	
@@ -63,12 +64,9 @@ public class UserDaoImpl implements UserDao{
 		User user = (User) template.queryForObject(query1, new BeanPropertyRowMapper(User.class));
 		//System.out.print(user.getId());
 		int id=user.getId();
-		java.sql.Date date=new Date(buyerRequest.getPaymentDate().getTime());
-		java.util.Date todayDate=new java.util.Date();
-		java.sql.Date requestDate = new java.sql.Date(todayDate.getTime());
-		
+		LocalDate date=LocalDate.now();
 		buyerRequest.setPaidAmount(0);
-		String query="insert into buyer_request values("+buyerRequest.getRequestId()+",'"+email+"',"+buyerRequest.getQuantity()+","+buyerRequest.getAmount()+",'"+buyerRequest.getLocation()+"','"+requestDate+"','"+date+"','2020-11-02','Order Received',"+buyerRequest.getPaidAmount()+","+id+")";
+		String query="insert into buyer_request values("+buyerRequest.getRequestId()+",'"+email+"',"+buyerRequest.getQuantity()+","+buyerRequest.getAmount()+",'"+buyerRequest.getLocation()+"','"+date+"','"+buyerRequest.getRequiredDate()+"','2020-11-02','Order Received',"+buyerRequest.getPaidAmount()+","+id+")";
 		return template.update(query);
 		}
 }

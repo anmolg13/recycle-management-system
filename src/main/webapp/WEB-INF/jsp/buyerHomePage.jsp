@@ -21,8 +21,8 @@
 				<td><form:input type="number" min="1" max="50" path="quantity" id="amount"/></td>
 			</tr>
 			<tr>
-				<td><form:label path="paymentDate">Date of requirement: </form:label></td>
-				<td><form:input path="paymentDate" id="date"/></td>
+				<td><form:label path="requiredDate">Date of requirement: </form:label></td>
+				<td><form:input path="requiredDate" type="date" id="date"/></td>
 			</tr>
 			<tr>
 				<td><form:label path="location">Location: </form:label></td>

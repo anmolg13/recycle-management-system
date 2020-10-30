@@ -1,6 +1,6 @@
 package com.cognizant.model;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -10,12 +10,12 @@ public class VendorRequest {
 	private String typeOfOrg;
 	private int amount;
 	private String location;
-	private Date requestDate;
-	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	private Date requiredDate;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate requestDate;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate requiredDate;
 	private String status;
-	@DateTimeFormat(pattern = "HH:mm")
-	private Date time;
+	private String time;
 	private int vendorId;
 	
 	public int getRequestId() {
@@ -48,16 +48,16 @@ public class VendorRequest {
 	public void setLocation(String location) {
 		this.location = location;
 	}
-	public Date getRequestDate() {
+	public LocalDate getRequestDate() {
 		return requestDate;
 	}
-	public void setRequestDate(Date requestDate) {
+	public void setRequestDate(LocalDate requestDate) {
 		this.requestDate = requestDate;
 	}
-	public Date getRequiredDate() {
+	public LocalDate getRequiredDate() {
 		return requiredDate;
 	}
-	public void setRequiredDate(Date requiredDate) {
+	public void setRequiredDate(LocalDate requiredDate) {
 		this.requiredDate = requiredDate;
 	}
 	public String getStatus() {
@@ -66,10 +66,10 @@ public class VendorRequest {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	public Date getTime() {
+	public String getTime() {
 		return time;
 	}
-	public void setTime(Date time) {
+	public void setTime(String time) {
 		this.time = time;
 	}
 	public int getVendorId() {

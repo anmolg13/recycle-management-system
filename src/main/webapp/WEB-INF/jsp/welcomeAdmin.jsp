@@ -8,5 +8,6 @@
 </head>
 <body>
 Hey ${username} welcome to the Admin Page.
+<a href="/viewOrders">Click here to view buyer Orders</a>
 </body>
 </html>

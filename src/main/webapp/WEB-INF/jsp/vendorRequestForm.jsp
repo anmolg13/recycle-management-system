@@ -19,8 +19,8 @@
 		</tr>
 		<tr>
 			<td><form:label path="typeOfOrg">Type of Organization: </form:label></td>
-			<td><form:radiobutton path="typeOfOrg" value="Resturant"/></td>
-			<td><form:radiobutton path="typeOfOrg" value="Hostel"/></td>
+			<td><form:radiobutton path="typeOfOrg" value="Restaurant"/>Restaurant</td>
+			<td><form:radiobutton path="typeOfOrg" value="Hostel"/>Hostel</td>
 		</tr>
 		<tr>
 			<td><form:label path="amount">Amount of Manure: </form:label></td>
@@ -34,7 +34,7 @@
 		</tr>
 		<tr>
 			<td><form:label path="requiredDate">Date: </form:label></td>
-			<td><form:input path="requiredDate" /></td>
+			<td><form:input type="date" path="requiredDate" /></td>
 			
 		</tr>
 		<tr>
