@@ -14,6 +14,7 @@
 
 	<h1>Buyer Home Page</h1>
 	<font color="red">${msg}</font>
+	<a href="/viewPastOrders">View your Past Orders</a>
 	<form:form method="POST" action="buyer" modelAttribute="buyerRequest">
 		<table>
 			<tr>

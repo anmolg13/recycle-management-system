@@ -1,4 +1,6 @@
 package com.cognizant.controller;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,15 +39,5 @@ public class AdminController {
 			}
 		return "welcomeAdmin";
 	}
-	
-	@RequestMapping(value="/viewOrders", method=RequestMethod.GET)
-	public String viewOrders(ModelMap model) {
-		List<BuyerRequest> orders=new ArrayList<>();
-		orders=adminservice.viewBuyerOrders();
-		model.put("orders",orders);
-		System.out.print("LIST:"+orders);
-		return "buyerOrders";
-	}
-
 }
 

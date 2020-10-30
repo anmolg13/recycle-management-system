@@ -20,9 +20,4 @@ public class AdminService {
 			return true;
 		else return false;
 	}
-	
-	public List<BuyerRequest> viewBuyerOrders() {
-		List<BuyerRequest> orders=admin.viewBuyerOrders();
-		return orders;
-	}
 }

@@ -22,10 +22,4 @@ public class AdminDaoImpl implements AdminDao {
 	    return password;
 	    
 	}
-
-	public List<BuyerRequest> viewBuyerOrders() {
-		String sql="select * from buyer_request order by buyer_id ";
-		List<BuyerRequest> orders=template.query(sql, new BeanPropertyRowMapper(BuyerRequest.class));
-		return orders;
-	}
 }

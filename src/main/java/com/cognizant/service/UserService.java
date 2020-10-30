@@ -1,5 +1,7 @@
 package com.cognizant.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +32,16 @@ public class UserService {
 	
 	public void insertBuyerRequest(BuyerRequest buyerRequest,String email) {
 		userDao.insertBuyerRequest(buyerRequest,email);
+	}
+	
+	public List<BuyerRequest> fetchRecords(String email){
+		List<BuyerRequest> records=userDao.fetchRecords(email);
+		return records;
+	}
+	
+	public String checkStatus(int requestId) {
+		String status=userDao.checkStatus(requestId);
+		return status;
 	}
 
 }

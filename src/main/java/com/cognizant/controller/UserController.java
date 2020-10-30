@@ -107,6 +107,42 @@ public class UserController {
 		return "buyerHomePage";
 	}
 	
+	@RequestMapping(value="/viewPastOrders",method=RequestMethod.GET)
+	public String viewOrders(@ModelAttribute("buyerRequest") BuyerRequest buyerRequest, ModelMap model) {
+		User user=(User)model.get("User");
+		String email=user.getEmail();
+		List<BuyerRequest> records=service.fetchRecords(email);
+		if(records.isEmpty()) {
+			model.put("msg", "NO ORDERS");
+			return "buyerPastNoOrders";
+		}
+		else {
+			model.put("records", records);
+			List<String> statusList=new ArrayList<>();
+			List<Boolean> payList=new ArrayList<>();
+			for(BuyerRequest request: records) {
+				String status=service.checkStatus(request.getRequestId());
+				boolean pay=false;
+				if(status.equalsIgnoreCase("Order Ready")) {
+					pay=true;
+					payList.add(pay);
+					statusList.add("Order Ready");
+				}
+				else if(status.equalsIgnoreCase("Order Received")) {
+					payList.add(pay);
+					statusList.add("Order Placed");
+				}
+				else if(status.equalsIgnoreCase("Order Shipped")) {
+					payList.add(pay);
+					statusList.add("Order Shipped");
+				}
+				model.put("statusList", statusList);
+				model.put("payList", payList);
+			}
+			return "buyerPastOrders";
+		}
+	}
+	
 	@RequestMapping(value="/buyer",method=RequestMethod.POST)
 	public String buyerHomePage(@ModelAttribute("buyerRequest") BuyerRequest buyerRequest, ModelMap model) {
 		User user=(User)model.get("User");
@@ -134,6 +170,9 @@ public class UserController {
 		buyerRequest.setAmount(amount);
 		model.put("amount", buyerRequest.getAmount());
 		service.insertBuyerRequest(buyerRequest,user.getEmail());
+		int requestId=buyerRequest.getRequestId();
+		String msg2="Your request ID is "+requestId;
+		model.put("msg2", msg2);
 		return "displayBuyerDetails";
 	}
 	

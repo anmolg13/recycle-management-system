@@ -3,6 +3,7 @@ package com.cognizant.dao;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,4 +70,16 @@ public class UserDaoImpl implements UserDao{
 		String query="insert into buyer_request values("+buyerRequest.getRequestId()+",'"+email+"',"+buyerRequest.getQuantity()+","+buyerRequest.getAmount()+",'"+buyerRequest.getLocation()+"','"+date+"','"+buyerRequest.getRequiredDate()+"','2020-11-02','Order Received',"+buyerRequest.getPaidAmount()+","+id+")";
 		return template.update(query);
 		}
+	
+	public List<BuyerRequest> fetchRecords(String email){
+		String query1="select * from buyer_request where buyer_email= '"+email+"'";
+		List<BuyerRequest> request=template.query(query1, new BeanPropertyRowMapper(BuyerRequest.class));
+		return request;
+	}
+	
+	public String checkStatus(int requestId) {
+		String query1="select * from buyer_request where request_id= "+requestId;
+		BuyerRequest request= (BuyerRequest) template.queryForObject(query1, new BeanPropertyRowMapper(BuyerRequest.class));
+		return request.getStatus();
+	}
 }

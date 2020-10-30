@@ -8,7 +8,8 @@
 </head>
 <body>
 <div align="center">
-<h1>Validated</h1>
+<h1>Welcome</h1>
+<a href="/viewOrders">Click to view Buyer Orders</a>
 </div>
 </body>
 </html>

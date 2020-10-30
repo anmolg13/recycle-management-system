@@ -14,5 +14,7 @@
 
 	<h1>Buyer Details</h1>
 	<font color="red">${msg} Amount to be paid: Rs ${amount}</font>
+	<br>
+	<font color="red"> ${msg2} </font>
 </body>
 </html>

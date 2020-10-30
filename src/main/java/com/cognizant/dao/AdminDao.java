@@ -7,5 +7,4 @@ import com.cognizant.model.BuyerRequest;
 public interface AdminDao {
 
 	public String validate(String username);
-	public List<BuyerRequest> viewBuyerOrders();
 }
