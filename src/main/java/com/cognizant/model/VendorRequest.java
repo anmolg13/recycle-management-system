@@ -2,6 +2,8 @@ package com.cognizant.model;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class VendorRequest {
 	private int requestId;
 	private String vendorEmail;
@@ -9,24 +11,13 @@ public class VendorRequest {
 	private int amount;
 	private String location;
 	private Date requestDate;
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date requiredDate;
 	private String status;
+	@DateTimeFormat(pattern = "HH:mm")
 	private Date time;
 	private int vendorId;
-	public VendorRequest(int requestId, String vendorEmail, String typeOfOrg, int amount, String location,
-			Date requestDate, Date requiredDate, String status, Date time, int vendorId) {
-		super();
-		this.requestId = requestId;
-		this.vendorEmail = vendorEmail;
-		this.typeOfOrg = typeOfOrg;
-		this.amount = amount;
-		this.location = location;
-		this.requestDate = requestDate;
-		this.requiredDate = requiredDate;
-		this.status = status;
-		this.time = time;
-		this.vendorId = vendorId;
-	}
+	
 	public int getRequestId() {
 		return requestId;
 	}

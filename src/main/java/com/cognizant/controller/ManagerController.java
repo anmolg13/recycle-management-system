@@ -1,5 +1,6 @@
 package com.cognizant.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +10,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.cognizant.dao.ManagerDaoImpl;
 import com.cognizant.model.Manager;
+import com.cognizant.service.ManagerService;
 
 @Controller
 public class ManagerController {
@@ -19,16 +20,18 @@ public class ManagerController {
 	Manager man;
 	
 	@Autowired
-	ManagerDaoImpl mandao;
+	ManagerService service;
 	
+	
+	//ManagerRegistration
 	@RequestMapping(value="/managerReg")
-	public String str()
+	public String managerReg()
 	{
 		return "managerReg";
 	}
 	
 	@RequestMapping(value="/managerRegForm")
-	public String klo(Model m)
+	public String managerRegForm(Model m)
 	{
 		m.addAttribute("manager", man);
 		return "managerRegForm";
@@ -36,24 +39,41 @@ public class ManagerController {
 	
 	
 	@RequestMapping(value="/submitForm")
-	public String ght(@Valid @ModelAttribute("manager") Manager mg, BindingResult br)
+	public String saveManagerDetails(@Valid @ModelAttribute("manager") Manager manager, BindingResult bindingresult)
 	{
-		    if(br.hasErrors())  
+		    if(bindingresult.hasErrors())  
 	        {  
-		   // 	System.out.println(br.getFieldError());
-		   // 	System.out.println("here");
 			 return "managerRegForm";
 	        }  
 	        else  
 	        {  
-	       // System.out.println("here1");
-	     //   System.out.println("here12");
-	      System.out.println("here13");
-	        int status=mandao.saveManager(mg);  
-	      //  System.out.println(status);  
-	        return "managerSuccess";  
+	        service.saveManager(manager);  
+	        return "managerAddedSuccess";  
 	        }  
 		
+	}
+	
+	
+	//Manager Login
+	@RequestMapping(value="/managerlogin")
+	public String managerLogin()
+	{
+		return "managerLogin";
+	}
+	
+	@RequestMapping(value="/validatemanager")
+	public String managerCredentialValidation(HttpServletRequest req)
+	{
+		String email = req.getParameter("email");
+		String pass = req.getParameter("password");
+		if(service.checkManagerCredentials(email, pass))
+		{
+			return "managerLoginSuccess";
+		}
+		else
+		{
+			return "managerLogin";
+		}
 	}
 	
 }

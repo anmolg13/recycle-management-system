@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import com.cognizant.dao.UserDao;
 import com.cognizant.model.BuyerRequest;
 import com.cognizant.model.User;
+import com.cognizant.model.VendorRequest;
 
 @Service
 public class UserService {
@@ -21,6 +22,10 @@ public class UserService {
 		if(password!=null && password.equals(pass))
 			return true;
 		else return false;
+	}
+	
+	public void insertVendorRequest(VendorRequest request,String email) {
+		userDao.insertVendorRequest(request,email);
 	}
 	
 	public void insertBuyerRequest(BuyerRequest buyerRequest,String email) {

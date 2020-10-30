@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import com.cognizant.model.BuyerRequest;
 import com.cognizant.model.User;
+import com.cognizant.model.VendorRequest;
 
 @Component
 public class UserDaoImpl implements UserDao{
@@ -36,6 +37,22 @@ public class UserDaoImpl implements UserDao{
 	    String sql="select password from user where email= '"+email+"'"; 
 	    String password=template.queryForObject(sql, String.class);
 	    return password;    
+	}
+	
+	public int insertVendorRequest(VendorRequest vendorRequest,String email) {
+		Random requestId=new Random();
+		int rid = requestId.nextInt(100000);
+		vendorRequest.setRequestId(rid);
+		String query1="select * from user where email= '"+email+"'";
+		User user = (User) template.queryForObject(query1, new BeanPropertyRowMapper(User.class));
+		//System.out.print(user.getId());
+		int id=user.getId();
+		java.sql.Date date=new Date(vendorRequest.getRequiredDate().getTime());
+		java.util.Date todayDate=new java.util.Date();
+		java.sql.Date requestDate = new java.sql.Date(todayDate.getTime());
+		java.sql.Timestamp sqlTime=new java.sql.Timestamp(vendorRequest.getTime().getTime());
+		String query="insert into vendor_request values("+vendorRequest.getRequestId()+",'"+email+"',"+vendorRequest.getTypeOfOrg()+","+vendorRequest.getAmount()+",'"+vendorRequest.getLocation()+"','"+requestDate+"','"+date+"','New',"+ sqlTime+","+id+")";
+		return template.update(query);
 	}
 	
 	public int insertBuyerRequest(BuyerRequest buyerRequest, String email) {

@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.cognizant.model.BuyerRequest;
 import com.cognizant.model.User;
+import com.cognizant.model.VendorRequest;
 import com.cognizant.service.UserService;
 
 
@@ -49,8 +50,13 @@ public class UserController {
 		return list;
 	}
 	
-	@RequestMapping(value="/userHomePage",method=RequestMethod.GET)
+	@RequestMapping(value="/homePage",method=RequestMethod.GET)
 	public String homePage(ModelMap model) {
+		return "homePage";
+	}
+	
+	@RequestMapping(value="/userHomePage",method=RequestMethod.GET)
+	public String userHomePage(ModelMap model) {
 		return "user";
 	}
 	
@@ -131,7 +137,18 @@ public class UserController {
 		return "displayBuyerDetails";
 	}
 	
+	@RequestMapping(value="/vendorRequest",method=RequestMethod.GET)
+	public String vendorRequestPage(@ModelAttribute("request") VendorRequest request) {
+		return "vendorRequestForm";
+	}
 	
+	@RequestMapping(value="/welcomeUser", method=RequestMethod.POST)
+	public String vendorRequestToDB( @ModelAttribute("request") VendorRequest request,ModelMap model) {
+		    User user=(User)model.get("User");
+			service.insertVendorRequest(request,user.getEmail());			
+			return "welcomeUser";
+		
+	}
 
 }
 

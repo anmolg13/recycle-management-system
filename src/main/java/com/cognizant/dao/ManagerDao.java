@@ -6,5 +6,5 @@ public interface ManagerDao {
 
 	public int saveManager(Manager m);
 	
-	
+	public boolean checkManagerCredentials(String email, String password);
 }
