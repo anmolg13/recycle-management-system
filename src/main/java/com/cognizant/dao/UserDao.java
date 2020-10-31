@@ -14,4 +14,5 @@ public interface UserDao {
 	public int insertBuyerRequest(BuyerRequest buyerRequest, String email);
 	public List<BuyerRequest> fetchRecords(String email);
 	public String checkStatus(int requestId);
+        public int updatePayment(BuyerRequest buyerRequest, String email,int amount);
 }

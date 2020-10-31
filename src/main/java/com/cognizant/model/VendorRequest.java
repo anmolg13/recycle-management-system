@@ -78,4 +78,23 @@ public class VendorRequest {
 	public void setVendorId(int vendorId) {
 		this.vendorId = vendorId;
 	}
+	public VendorRequest(int requestId, String vendorEmail, String typeOfOrg, int amount, String location,
+			LocalDate requestDate, LocalDate requiredDate, String status, String time, int vendorId) {
+		super();
+		this.requestId = requestId;
+		this.vendorEmail = vendorEmail;
+		this.typeOfOrg = typeOfOrg;
+		this.amount = amount;
+		this.location = location;
+		this.requestDate = requestDate;
+		this.requiredDate = requiredDate;
+		this.status = status;
+		this.time = time;
+		this.vendorId = vendorId;
+	}
+	public VendorRequest() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
 }

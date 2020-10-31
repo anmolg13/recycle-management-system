@@ -23,7 +23,7 @@
 			</tr>
 			<tr>
 				<td><form:label path="requiredDate">Date of requirement: </form:label></td>
-				<td><form:input path="requiredDate" type="date" id="date"/></td>
+				<td><form:input path="requiredDate" type="date" id="date" min="${date}"/></td>
 			</tr>
 			<tr>
 				<td><form:label path="location">Location: </form:label></td>
@@ -36,4 +36,6 @@
 		</table>
 	</form:form>
 </body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js">
+</script>
 </html>

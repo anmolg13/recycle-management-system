@@ -13,8 +13,9 @@
 <body>
 
 	<h1>Buyer Details</h1>
-	<font color="red">${msg} Amount to be paid: Rs ${amount}</font>
-	<br>
-	<font color="red"> ${msg2} </font>
+	<font color="red">${msg} Total Amount to be paid: Rs ${amount} You need to pay ${pamount} now</font>
+	<form action="/payment" >
+	<td><button type="submit" id="submit" name="submit">Advance Payment</button></td>
+	</form>
 </body>
 </html>

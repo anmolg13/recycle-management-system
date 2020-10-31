@@ -82,4 +82,12 @@ public class UserDaoImpl implements UserDao{
 		BuyerRequest request= (BuyerRequest) template.queryForObject(query1, new BeanPropertyRowMapper(BuyerRequest.class));
 		return request.getStatus();
 	}
+
+       public int updatePayment(BuyerRequest buyerRequest, String email,int amount) {
+		
+		int rid=buyerRequest.getRequestId();
+		
+		String query="update buyer_request set paid_amount="+amount+" where request_id="+rid;
+		return template.update(query);
+		}
 }

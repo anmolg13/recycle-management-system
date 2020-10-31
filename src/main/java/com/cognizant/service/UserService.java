@@ -44,4 +44,8 @@ public class UserService {
 		return status;
 	}
 
+        public void updatePayment(BuyerRequest buyerRequest,String email,int amount) {
+		userDao.updatePayment(buyerRequest,email,amount);
+	}
+
 }

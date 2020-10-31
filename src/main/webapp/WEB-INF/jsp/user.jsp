@@ -4,11 +4,20 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>User Home Page</title>
+<title>USER HOME PAGE</title>
+<link href="webjars/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<h1>Home Page for User</h1>
-<a href="/registerUser">Click here to register</a>   |   <a href="/loginUser">Click here to login</a>
-
+<div class="container content">
+<div style="background: rgb(139,0,139);" class="jumbotron heading">
+<h1 style="color: white; text-align: center">Recycle Management System</h1>
+</div>
+<div class="col" style="margin:auto; padding-top:50px;">
+<a class="col-sm-6 btn btn-basic" role="button" href="/registerUser"><h3><b>USER REGISTRATION</b></h3></a>
+<a class="col-sm-6 btn btn-basic" role="button" href="/loginUser"><h3><b>USER LOGIN</b></h3></a>
+</div>
+</div>
+<script src="webjars/jquery/1.9.1/jquery.min.js"></script>
+<script src="webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 </body>
 </html>

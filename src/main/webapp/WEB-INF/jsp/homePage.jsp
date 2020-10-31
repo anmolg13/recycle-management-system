@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Home</title>
+<title>Recycle Management System</title>
 <link href="webjars/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
@@ -13,9 +13,9 @@
 <h1 style="color: white; text-align: center">Recycle Management System</h1>
 </div>
 <div class="col" style="margin:auto; padding-top:50px;">
-<a class="col-sm-4 btn btn-basic" role="button" href="/loginAdmin"><h3><b>ADMIN LOGIN</b></h3></a>
-<a class="col-sm-4 btn btn-basic" role="button" href="/userHomePage"><h3><b>USER REGISTER/LOGIN</b></h3></a>
-<a class="col-sm-4 btn btn-basic" role="button" href="/managerReg"><h3><b>MANAGER REGISTER/LOGIN</b></h3></a>
+<a class="col-sm-4 btn btn-basic" role="button" href="/loginAdmin"><h3><b>WELCOME ADMIN</b></h3></a>
+<a class="col-sm-4 btn btn-basic" role="button" href="/manager"><h3><b>WELCOME MANAGER</b></h3></a>
+<a class="col-sm-4 btn btn-basic" role="button" href="/userHomePage"><h3><b>WELCOME USER</b></h3></a>
 </div>
 </div>
 <script src="webjars/jquery/1.9.1/jquery.min.js"></script>

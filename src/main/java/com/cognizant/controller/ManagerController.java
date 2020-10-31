@@ -1,5 +1,7 @@
 package com.cognizant.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.cognizant.model.Manager;
+import com.cognizant.model.VendorRequest;
 import com.cognizant.service.ManagerService;
 
 @Controller
@@ -24,12 +27,6 @@ public class ManagerController {
 	
 	
 	//ManagerRegistration
-	@RequestMapping(value="/managerReg")
-	public String managerReg()
-	{
-		return "managerReg";
-	}
-	
 	@RequestMapping(value="/managerRegForm")
 	public String managerRegForm(Model m)
 	{
@@ -55,12 +52,6 @@ public class ManagerController {
 	
 	
 	//Manager Login
-	@RequestMapping(value="/managerlogin")
-	public String managerLogin()
-	{
-		return "managerLogin";
-	}
-	
 	@RequestMapping(value="/validatemanager")
 	public String managerCredentialValidation(HttpServletRequest req)
 	{
@@ -74,6 +65,49 @@ public class ManagerController {
 		{
 			return "managerLogin";
 		}
+	}
+	
+	
+	//ManagerViewVendorRequests
+	@RequestMapping(value="/viewrequests") 
+	public String viewRequests(HttpServletRequest req) 
+	{
+		List<VendorRequest> requests = service.getVendorRequests();
+		req.setAttribute("requestsList", requests);
+		return "viewVendorRequests";
+	}
+	
+	
+	
+	//First View
+	@RequestMapping(value="/manager")
+	public String managerLoginRegister()
+	{
+		return "managerLoginReg";
+	}
+	
+	
+	//Edit Status
+	@RequestMapping(value="/editstatus")
+	public String editStatus()
+	{
+		return "managerEditStatus";
+	}
+	
+	@RequestMapping(value="/submitstatus")
+	public String submitStatus(HttpServletRequest req)
+	{
+		int id = Integer.parseInt(req.getParameter("requestid"));
+		String newStatus = req.getParameter("status");
+        int i = service.changeStatus(id, newStatus);
+        if(i>0)
+        {
+		return "statusChanged";
+        }
+        else
+        {
+        return "statusNotChanged";
+        }
 	}
 	
 }

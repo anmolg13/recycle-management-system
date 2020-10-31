@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.cognizant.model.BuyerRequest;
@@ -27,7 +28,7 @@ import com.cognizant.service.UserService;
 
 
 @Controller
-@SessionAttributes("User")
+@SessionAttributes({"User","BuyerRequest"})
 public class UserController {
 	@Autowired
 	private UserService service;
@@ -169,7 +170,12 @@ public class UserController {
 		int amount=quantity*50;
 		buyerRequest.setAmount(amount);
 		model.put("amount", buyerRequest.getAmount());
+                if(quantity<10)
+		model.put("pamount", buyerRequest.getAmount());
+		else
+			model.put("pamount", buyerRequest.getAmount()*0.4);
 		service.insertBuyerRequest(buyerRequest,user.getEmail());
+                model.put("BuyerRequest", buyerRequest);
 		int requestId=buyerRequest.getRequestId();
 		String msg2="Your request ID is "+requestId;
 		model.put("msg2", msg2);
@@ -188,6 +194,43 @@ public class UserController {
 			return "welcomeUser";
 		
 	}
+
+       @RequestMapping(value="/payment",method=RequestMethod.GET)
+	public String paymentPage() {
+		return "payment";
+	}
+	@RequestMapping(value="/pay",method=RequestMethod.POST)
+	public String pay( ModelMap model,@RequestParam int paidAmount) {
+		int amount=paidAmount;
+		
+		BuyerRequest buyerRequest=(BuyerRequest) model.get("BuyerRequest");
+		
+		
+		User user=(User)model.get("User");
+		
+		String message;
+		if(buyerRequest.getQuantity()<10 && amount<buyerRequest.getAmount())
+		{
+			message="Insufficient amount paid";
+			model.put("msg", message);
+			return "payment";
+		}
+		else if(buyerRequest.getQuantity()>=10  &&  amount<0.4*buyerRequest.getAmount())
+		{
+			message="Insufficient amount paid";
+			model.put("msg", message);
+			return "payment";
+		}
+		else 
+		{   service.updatePayment(buyerRequest,user.getEmail(),amount);
+			message="Payment Successfull";
+			model.put("msg", message);
+			return "welcomeUser";
+		}
+
+		
+	}
+   
 
 }
 
