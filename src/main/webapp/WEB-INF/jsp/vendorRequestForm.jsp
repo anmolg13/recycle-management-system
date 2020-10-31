@@ -34,7 +34,7 @@
 		</tr>
 		<tr>
 			<td><form:label path="requiredDate">Date: </form:label></td>
-			<td><form:input type="date" path="requiredDate" /></td>
+			<td><form:input type="date" path="requiredDate" min="${date}"/></td>
 			
 		</tr>
 		<tr>

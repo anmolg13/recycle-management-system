@@ -1,5 +1,6 @@
 package com.cognizant.controller;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -104,7 +105,9 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/buyer",method=RequestMethod.GET)
-	public String buyerHomePage(@ModelAttribute("buyerRequest") BuyerRequest buyerRequest) {
+	public String buyerHomePage1(@ModelAttribute("buyerRequest") BuyerRequest buyerRequest, ModelMap model) {
+		LocalDate date=LocalDate.now();
+		model.put("date",date);		
 		return "buyerHomePage";
 	}
 	
@@ -183,7 +186,9 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/vendorRequest",method=RequestMethod.GET)
-	public String vendorRequestPage(@ModelAttribute("request") VendorRequest request) {
+	public String vendorRequestPage(@ModelAttribute("request") VendorRequest request, ModelMap model) {
+		LocalDate date=LocalDate.now();
+		model.put("date",date);		
 		return "vendorRequestForm";
 	}
 	
