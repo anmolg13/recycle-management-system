@@ -29,17 +29,6 @@ public class AdminController {
 		return "loginAdmin";
 	}
 	
-	@RequestMapping(value="/loginAdmin",method=RequestMethod.POST)
-	public String showAdminWelcomePage(ModelMap model,@RequestParam String username,@RequestParam String password) {
-		boolean isValidUser=adminservice.validateAdmin(username, password);
-		if(!isValidUser)
-			{
-			model.put("message","invalid Credentials");
-			return "loginAdmin";
-			}
-		return "welcomeAdmin";
-	}
-	
 	/* It provides list of requests in model object */
 	@RequestMapping(value="/requests",method=RequestMethod.GET)
 	public String vendorRequestsDefault(Model m){
@@ -62,6 +51,17 @@ public class AdminController {
 		   System.out.println("Empty List");
 		m.addAttribute("list", list);
 		return "viewRequests";
+	}
+	
+	@RequestMapping(value="/loginAdmin",method=RequestMethod.POST)
+	public String showAdminWelcomePage(ModelMap model,@RequestParam String username,@RequestParam String password) {
+		boolean isValidUser=adminservice.validateAdmin(username, password);
+		if(!isValidUser)
+			{
+			model.put("message","Invalid Credentials");
+			return "loginAdmin";
+			}
+		return "welcomeAdmin";
 	}
 }
 

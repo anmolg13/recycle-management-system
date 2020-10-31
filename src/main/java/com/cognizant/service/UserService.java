@@ -20,8 +20,8 @@ public class UserService {
 	}
 	
 	public boolean validateUser(String email,String password) {
-		String pass=userDao.validate(email);
-		if(password!=null && password.equals(pass))
+		int check=userDao.validate(email,password);
+		if(check>=1)
 			return true;
 		else return false;
 	}
@@ -47,5 +47,9 @@ public class UserService {
         public void updatePayment(BuyerRequest buyerRequest,String email,int amount) {
 		userDao.updatePayment(buyerRequest,email,amount);
 	}
+        
+        public void updatePayment2(int requestId,int amount) {
+    		userDao.updatePayment2(requestId,amount);
+    	}
 
 }

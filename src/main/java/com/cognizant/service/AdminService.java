@@ -16,8 +16,8 @@ public class AdminService {
 	AdminDao admin;
 	
 	public boolean validateAdmin(String username,String password) {
-		String pass=admin.validate(username);
-		if(password!=null && password.equals(pass))
+		int check=admin.validate(username,password);
+		if(check>=1)
 			return true;
 		else return false;
 	}

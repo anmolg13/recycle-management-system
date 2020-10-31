@@ -34,7 +34,7 @@
 		         <td>${order.buyerId}</td>
 		         <td>${statusList[status.index]}</td>
 		         <td><c:if test="${payList[status.index]}">
-		         	<a href="/payForOrder?requestId="${order.requestId}>Pay</a>
+		         	<a href="/payForOrder?requestId=${order.requestId}&amount=${order.amount}&paidamount=${order.paidAmount}">Pay</a>
 		         </c:if>
 		         </td>
 	       	 </tr>

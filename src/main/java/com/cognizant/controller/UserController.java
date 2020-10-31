@@ -94,7 +94,7 @@ public class UserController {
 		boolean isValidUser=service.validateUser(user.getEmail(), user.getPassword());
 		if(!isValidUser)
 			{
-			model.put("message","invalid Credentials");
+			model.put("message","Invalid Credentials/Please Register first");
 			return "loginUser";
 			}
 		
@@ -236,6 +236,41 @@ public class UserController {
 		
 	}
    
+	@RequestMapping(value="/payForOrder",method=RequestMethod.GET)
+	public String paymentPage2(ModelMap model,@RequestParam int requestId,@RequestParam int amount,@RequestParam int paidamount) {
+		int pamount=amount-paidamount;
+		model.put("payamount",pamount);
+		model.put("totamount",amount);
+		model.put("requestId",requestId);
+		return "payment2";
+	}
+   
+	@RequestMapping(value="/pay2",method=RequestMethod.POST)
+	public String pay2( ModelMap model,@RequestParam int payamount,@RequestParam int paidAmount,@RequestParam int totamount,@RequestParam int requestId) {
+		
+		System.out.println("1");
+		BuyerRequest buyerRequest=(BuyerRequest) model.get("BuyerRequest");
+		System.out.println("1");
+		
+		User user=(User)model.get("User");
+		System.out.println("1");
+		String message;
+		if(payamount==paidAmount)
+			{System.out.println("1");
+			service.updatePayment2(requestId,totamount);
+			message="Payment Successfull";
+		model.put("msg", message);
+		return "welcomeUser";}
+		else
+			{
+			message="Insufficient amount paid.";
+			model.put("msg", message);
+			model.put("payamount",payamount);
+			return "payment2";
+			}
+		
+		
+	}
 
 }
 

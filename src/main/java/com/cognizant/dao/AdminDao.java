@@ -7,6 +7,6 @@ import com.cognizant.model.VendorRequest;
 
 public interface AdminDao {
 
-	public String validate(String username);
+	public int validate(String username,String password);
 	public List<VendorRequest> getVendorRequests(LocalDate localDate);
 }
