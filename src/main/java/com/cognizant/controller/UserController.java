@@ -1,4 +1,5 @@
 package com.cognizant.controller;
+
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -27,250 +28,253 @@ import com.cognizant.model.User;
 import com.cognizant.model.VendorRequest;
 import com.cognizant.service.UserService;
 
-
 @Controller
-@SessionAttributes({"User","BuyerRequest"})
+@SessionAttributes({ "User", "BuyerRequest" })
 public class UserController {
 	@Autowired
 	private UserService service;
-	
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
-	
+
 	@InitBinder
 	protected void initBinder(WebDataBinder binder) {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-		binder.registerCustomEditor(Date.class, new CustomDateEditor(
-				dateFormat, false));
+		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
 	}
-	
+
 	@ModelAttribute("genderList")
-	public List<String> genderList(){
-		List<String> list=new ArrayList<>();
+	public List<String> genderList() {
+		List<String> list = new ArrayList<>();
 		list.add("----Select----");
 		list.add("Male");
 		list.add("Female");
 		return list;
 	}
-	
-	@RequestMapping(value="/homePage",method=RequestMethod.GET)
+
+	@RequestMapping(value = "/homePage", method = RequestMethod.GET)
 	public String homePage(ModelMap model) {
 		return "homePage";
 	}
-	
-	@RequestMapping(value="/userHomePage",method=RequestMethod.GET)
+
+	@RequestMapping(value = "/userHomePage", method = RequestMethod.GET)
 	public String userHomePage(ModelMap model) {
 		return "user";
 	}
-	
-	@RequestMapping(value="/registerUser",method=RequestMethod.GET)
+
+	@RequestMapping(value = "/registerUser", method = RequestMethod.GET)
 	public String registrationPage(@ModelAttribute("user") User user) {
 		return "userRegistration";
 	}
-	
-	@RequestMapping(value="/registerUser", method=RequestMethod.POST)
-	public String registrationValidation(@Valid @ModelAttribute("user") User user,BindingResult result,ModelMap model) {
+
+	@RequestMapping(value = "/registerUser", method = RequestMethod.POST)
+	public String registrationValidation(@Valid @ModelAttribute("user") User user, BindingResult result,
+			ModelMap model) {
 		LOGGER.info("Start");
-		if(result.hasErrors()) {
+		if (result.hasErrors()) {
 			System.out.println("errors");
 			System.out.println(result.getAllErrors());
 			LOGGER.info("end");
 			return "userRegistration";
-			
-		}
-		else {
+
+		} else {
 			service.insertIntoDb(user);
 			LOGGER.info("end");
 			return "userRegistrationSuccessful";
 		}
 	}
-	
-	@RequestMapping(value="/loginUser",method=RequestMethod.GET)
+
+	@RequestMapping(value = "/loginUser", method = RequestMethod.GET)
 	public String showLoginPage(ModelMap model) {
-		//model.put("name",name);
+		// model.put("name",name);
 		return "loginUser";
 	}
-	@RequestMapping(value="/loginUser",method=RequestMethod.POST)
-	public String showWelcomePage(ModelMap model,@ModelAttribute("user") User user) {
-		boolean isValidUser=service.validateUser(user.getEmail(), user.getPassword());
-		if(!isValidUser)
-			{
-			model.put("message","Invalid Credentials/Please Register first");
+
+	@RequestMapping(value = "/loginUser", method = RequestMethod.POST)
+	public String showWelcomePage(ModelMap model, @ModelAttribute("user") User user) {
+		LOGGER.info("Start");
+		boolean isValidUser = service.validateUser(user.getEmail(), user.getPassword());
+		if (!isValidUser) {
+			model.put("message", "Invalid Credentials/Please Register first");
+			LOGGER.info("End");
 			return "loginUser";
-			}
-		
-		//model.put("name",email);
-		//model.put("password",password);
+		}
+
+		// model.put("name",email);
+		// model.put("password",password);
 		model.put("User", user);
+		LOGGER.info("End");
 		return "welcomeUser";
 	}
-	
-	@RequestMapping(value="/buyer",method=RequestMethod.GET)
+
+	@RequestMapping(value = "/buyer", method = RequestMethod.GET)
 	public String buyerHomePage1(@ModelAttribute("buyerRequest") BuyerRequest buyerRequest, ModelMap model) {
-		LocalDate date=LocalDate.now();
-		model.put("date",date);		
+		LOGGER.info("Start");
+		LocalDate date = LocalDate.now();
+		model.put("date", date);
+		LOGGER.info("End");
 		return "buyerHomePage";
 	}
-	
-	@RequestMapping(value="/viewPastOrders",method=RequestMethod.GET)
+
+	@RequestMapping(value = "/viewPastOrders", method = RequestMethod.GET)
 	public String viewOrders(@ModelAttribute("buyerRequest") BuyerRequest buyerRequest, ModelMap model) {
-		User user=(User)model.get("User");
-		String email=user.getEmail();
-		List<BuyerRequest> records=service.fetchRecords(email);
-		if(records.isEmpty()) {
+		LOGGER.info("Start");
+		User user = (User) model.get("User");
+		String email = user.getEmail();
+		List<BuyerRequest> records = service.fetchRecords(email);
+		if (records.isEmpty()) {
 			model.put("msg", "NO ORDERS");
+			LOGGER.info("End");
 			return "buyerPastNoOrders";
-		}
-		else {
+		} else {
 			model.put("records", records);
-			List<String> statusList=new ArrayList<>();
-			List<Boolean> payList=new ArrayList<>();
-			for(BuyerRequest request: records) {
-				String status=service.checkStatus(request.getRequestId());
-				boolean pay=false;
-				if(status.equalsIgnoreCase("Order Ready")) {
-					pay=true;
+			List<String> statusList = new ArrayList<>();
+			List<Boolean> payList = new ArrayList<>();
+			for (BuyerRequest request : records) {
+				String status = service.checkStatus(request.getRequestId());
+				boolean pay = false;
+				if (status.equalsIgnoreCase("Order Ready")) {
+					pay = true;
 					payList.add(pay);
 					statusList.add("Order Ready");
-				}
-				else if(status.equalsIgnoreCase("Order Received")) {
+				} else if (status.equalsIgnoreCase("Order Received")) {
 					payList.add(pay);
 					statusList.add("Order Placed");
-				}
-				else if(status.equalsIgnoreCase("Order Shipped")) {
+				} else if (status.equalsIgnoreCase("Order Shipped")) {
 					payList.add(pay);
 					statusList.add("Order Shipped");
 				}
 				model.put("statusList", statusList);
 				model.put("payList", payList);
 			}
+			LOGGER.info("End");
 			return "buyerPastOrders";
 		}
 	}
-	
-	@RequestMapping(value="/buyer",method=RequestMethod.POST)
+
+	@RequestMapping(value = "/buyer", method = RequestMethod.POST)
 	public String buyerHomePage(@ModelAttribute("buyerRequest") BuyerRequest buyerRequest, ModelMap model) {
-		User user=(User)model.get("User");
+		LOGGER.info("Start");
+		User user = (User) model.get("User");
 		String message;
-		if(buyerRequest.getQuantity()<10)
-		{
-			message="We can serve your request today.";
-		}
-		else if(buyerRequest.getQuantity()>=10 && buyerRequest.getQuantity()<20)
-		{
-			message="We can serve your request in 2 days.";
-		}
-		else 
-		{
-			message="We can serve your request in 4 days.";
+		if (buyerRequest.getQuantity() < 10) {
+			message = "We can serve your request today.";
+		} else if (buyerRequest.getQuantity() >= 10 && buyerRequest.getQuantity() < 20) {
+			message = "We can serve your request in 2 days.";
+		} else {
+			message = "We can serve your request in 4 days.";
 		}
 //		else {
 //			model.put("msg","Maximum quantity allowed is 50 kg!!");
 //			return "buyerHomePage";
 //		}
 		model.put("msg", message);
-		int quantity=buyerRequest.getQuantity();
-		//System.out.print("Qty"+quantity);
-		int amount=quantity*50;
+		int quantity = buyerRequest.getQuantity();
+		// System.out.print("Qty"+quantity);
+		int amount = quantity * 50;
 		buyerRequest.setAmount(amount);
 		model.put("amount", buyerRequest.getAmount());
-                if(quantity<10)
-		model.put("pamount", buyerRequest.getAmount());
+		if (quantity < 10)
+			model.put("pamount", buyerRequest.getAmount());
 		else
-			model.put("pamount", buyerRequest.getAmount()*0.4);
-		service.insertBuyerRequest(buyerRequest,user.getEmail());
-                model.put("BuyerRequest", buyerRequest);
-		int requestId=buyerRequest.getRequestId();
-		String msg2="Your request ID is "+requestId;
+			model.put("pamount", buyerRequest.getAmount() * 0.4);
+		service.insertBuyerRequest(buyerRequest, user.getEmail());
+		model.put("BuyerRequest", buyerRequest);
+		int requestId = buyerRequest.getRequestId();
+		String msg2 = "Your request ID is " + requestId;
 		model.put("msg2", msg2);
+		LOGGER.info("End");
 		return "displayBuyerDetails";
 	}
-	
-	@RequestMapping(value="/vendorRequest",method=RequestMethod.GET)
+
+	@RequestMapping(value = "/vendorRequest", method = RequestMethod.GET)
 	public String vendorRequestPage(@ModelAttribute("request") VendorRequest request, ModelMap model) {
-		LocalDate date=LocalDate.now();
-		model.put("date",date);		
+		LOGGER.info("Start");
+		LocalDate date = LocalDate.now();
+		model.put("date", date);
+		LOGGER.info("End");
 		return "vendorRequestForm";
 	}
-	
-	@RequestMapping(value="/welcomeUser", method=RequestMethod.POST)
-	public String vendorRequestToDB( @ModelAttribute("request") VendorRequest request,ModelMap model) {
-		    User user=(User)model.get("User");
-			service.insertVendorRequest(request,user.getEmail());			
-			return "welcomeUser";
-		
+
+	@RequestMapping(value = "/welcomeUser", method = RequestMethod.POST)
+	public String vendorRequestToDB(@ModelAttribute("request") VendorRequest request, ModelMap model) {
+		LOGGER.info("Start");
+		User user = (User) model.get("User");
+		service.insertVendorRequest(request, user.getEmail());
+		LOGGER.info("End");
+		return "welcomeUser";
+
 	}
 
-       @RequestMapping(value="/payment",method=RequestMethod.GET)
+	@RequestMapping(value = "/payment", method = RequestMethod.GET)
 	public String paymentPage() {
 		return "payment";
 	}
-	@RequestMapping(value="/pay",method=RequestMethod.POST)
-	public String pay( ModelMap model,@RequestParam int paidAmount) {
-		int amount=paidAmount;
-		
-		BuyerRequest buyerRequest=(BuyerRequest) model.get("BuyerRequest");
-		
-		
-		User user=(User)model.get("User");
-		
+
+	@RequestMapping(value = "/pay", method = RequestMethod.POST)
+	public String pay(ModelMap model, @RequestParam int paidAmount) {
+		LOGGER.info("Start");
+		int amount = paidAmount;
+
+		BuyerRequest buyerRequest = (BuyerRequest) model.get("BuyerRequest");
+
+		User user = (User) model.get("User");
+
 		String message;
-		if(buyerRequest.getQuantity()<10 && amount<buyerRequest.getAmount())
-		{
-			message="Insufficient amount paid";
+		if (buyerRequest.getQuantity() < 10 && amount < buyerRequest.getAmount()) {
+			message = "Insufficient amount paid";
 			model.put("msg", message);
+			LOGGER.info("End");
 			return "payment";
-		}
-		else if(buyerRequest.getQuantity()>=10  &&  amount<0.4*buyerRequest.getAmount())
-		{
-			message="Insufficient amount paid";
+		} else if (buyerRequest.getQuantity() >= 10 && amount < 0.4 * buyerRequest.getAmount()) {
+			message = "Insufficient amount paid";
 			model.put("msg", message);
+			LOGGER.info("End");
 			return "payment";
-		}
-		else 
-		{   service.updatePayment(buyerRequest,user.getEmail(),amount);
-			message="Payment Successfull";
+		} else {
+			service.updatePayment(buyerRequest, user.getEmail(), amount);
+			message = "Payment Successfull";
 			model.put("msg", message);
+			LOGGER.info("End");
 			return "welcomeUser";
 		}
 
-		
 	}
-   
-	@RequestMapping(value="/payForOrder",method=RequestMethod.GET)
-	public String paymentPage2(ModelMap model,@RequestParam int requestId,@RequestParam int amount,@RequestParam int paidamount) {
-		int pamount=amount-paidamount;
-		model.put("payamount",pamount);
-		model.put("totamount",amount);
-		model.put("requestId",requestId);
+
+	@RequestMapping(value = "/payForOrder", method = RequestMethod.GET)
+	public String paymentPage2(ModelMap model, @RequestParam int requestId, @RequestParam int amount,
+			@RequestParam int paidamount) {
+		LOGGER.info("Start");
+		int pamount = amount - paidamount;
+		model.put("payamount", pamount);
+		model.put("totamount", amount);
+		model.put("requestId", requestId);
+		LOGGER.info("End");
 		return "payment2";
 	}
-   
-	@RequestMapping(value="/pay2",method=RequestMethod.POST)
-	public String pay2( ModelMap model,@RequestParam int payamount,@RequestParam int paidAmount,@RequestParam int totamount,@RequestParam int requestId) {
-		
-		System.out.println("1");
-		BuyerRequest buyerRequest=(BuyerRequest) model.get("BuyerRequest");
-		System.out.println("1");
-		
-		User user=(User)model.get("User");
-		System.out.println("1");
+
+	@RequestMapping(value = "/pay2", method = RequestMethod.POST)
+	public String pay2(ModelMap model, @RequestParam int payamount, @RequestParam int paidAmount,
+			@RequestParam int totamount, @RequestParam int requestId) {
+
+		LOGGER.info("Start");
+		BuyerRequest buyerRequest = (BuyerRequest) model.get("BuyerRequest");
+
+		User user = (User) model.get("User");
 		String message;
-		if(payamount==paidAmount)
-			{System.out.println("1");
-			service.updatePayment2(requestId,totamount);
-			message="Payment Successfull";
-		model.put("msg", message);
-		return "welcomeUser";}
-		else
-			{
-			message="Insufficient amount paid.";
+		if (payamount == paidAmount) {
+			service.updatePayment2(requestId, totamount);
+			message = "Payment Successfull";
 			model.put("msg", message);
-			model.put("payamount",payamount);
+			LOGGER.info("End");
+			return "welcomeUser";
+		} else {
+			message = "Insufficient amount paid.";
+			model.put("msg", message);
+			model.put("payamount", payamount);
+			LOGGER.info("End");
 			return "payment2";
-			}
-		
-		
+		}
+
 	}
 
 }
-

@@ -11,19 +11,9 @@
 </head>
 <body>
 
-<h1>Hey welcome to admin page</h1>
+
 	<table>
-	
-		<tr>
-			<td><a href="/viewOrders">View Buyer Requests</a></td>
-		</tr>
-		<tr>
-			<td><a href="/requests">View Vendor Requests</a></td>
-		</tr>
-		<tr>
-			<td><a href="/downloadReportForBuyer">Generate Report for Buyers</a></td>
-		</tr>
-		
+		<b>${msg}</b>
 	</table>
 </body>
 </html>

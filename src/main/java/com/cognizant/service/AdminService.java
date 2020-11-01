@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.cognizant.dao.AdminDao;
+import com.cognizant.model.BuyerRequest;
 import com.cognizant.model.VendorRequest;
 
 @Component
@@ -27,5 +28,19 @@ public class AdminService {
 		List<VendorRequest> vRequests=admin.getVendorRequests(localDate);
 		return vRequests;
 		
+	}
+	
+	public void generateReportForBuyer(LocalDate date1, LocalDate date2) throws Exception{
+		admin.generateReportForBuyer(date1, date2);
+	}
+	
+	public List<BuyerRequest> viewReportForBuyer(LocalDate date1, LocalDate date2){
+		List<BuyerRequest> orders=admin.viewReportForBuyer(date1, date2);
+		return orders;
+	}
+	
+	public List<VendorRequest> getRequestsBetweenTwoDates(LocalDate startdate, LocalDate enddate) {
+		List<VendorRequest> vRequestsBetweenTwoDates=admin.getVendorRequestsBetweenTwoDates(startdate,enddate);
+		return vRequestsBetweenTwoDates;
 	}
 }
