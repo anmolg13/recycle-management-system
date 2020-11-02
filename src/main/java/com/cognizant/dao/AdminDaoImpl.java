@@ -60,7 +60,7 @@ public class AdminDaoImpl implements AdminDao {
 	public void generateReportForBuyer(LocalDate date1, LocalDate date2) throws Exception {
 		List<BuyerRequest> orders=viewReportForBuyer(date1, date2);
 		XSSFWorkbook workbook = new XSSFWorkbook();
-		XSSFSheet spreadsheet = workbook.createSheet("buyer_report");
+		XSSFSheet spreadsheet = workbook.createSheet("buyer_report_"+date1+"-"+date2);
 
 		XSSFRow row = spreadsheet.createRow(1);
 		XSSFCell cell;
@@ -120,6 +120,5 @@ public class AdminDaoImpl implements AdminDao {
 		FileOutputStream out = new FileOutputStream(new File("BUYERS_REPORT.xlsx"));
 		workbook.write(out);
 		out.close();
-		System.out.println("BUYERS_REPORT.xlsx downloaded successfully");
 	}
 }

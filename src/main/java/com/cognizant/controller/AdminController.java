@@ -69,12 +69,16 @@ public class AdminController {
 	public String generateBuyerReport(ModelMap model) {
 		LocalDate today = LocalDate.now();
 		model.put("today", today);
+		model.put("date1", "");
+		model.put("date2", "");
 		return "buyerReport";
 	}
 
 	@RequestMapping(value = "/viewReportForBuyer", method = RequestMethod.POST)
 	public String generateBuyerReport3(@RequestParam("date1") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date1,
 			@RequestParam("date2") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date2, ModelMap model) {
+		model.put("date1", date1);
+		model.put("date2", date2);
 		if (date2.compareTo(date1) <= 0) {
 			model.put("status", false);
 			model.put("msg", "To date should be greater than From Date");
@@ -95,7 +99,7 @@ public class AdminController {
 			@RequestParam("date2") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date2, ModelMap mode)
 			throws Exception {
 		adminservice.generateReportForBuyer(date1, date2);
-		model.put("msg", "REPORT HAS BEEN DOWNLOADED AS BUYERS_REPORT.xlsx.");
+		model.put("msg", "REPORT HAS BEEN DOWNLOADED AS SHEET buyer_report_"+date1+"-"+date2+" IN BUYERS_REPORT.xlsx");
 		return "downloadReport";
 	}
 	
