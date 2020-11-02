@@ -30,8 +30,8 @@ public class UserService {
 		userDao.insertVendorRequest(request,email);
 	}
 	
-	public void insertBuyerRequest(BuyerRequest buyerRequest,String email) {
-		userDao.insertBuyerRequest(buyerRequest,email);
+	public void insertBuyerRequest(BuyerRequest buyerRequest,String email, int amount) {
+		userDao.insertBuyerRequest(buyerRequest,email,amount);
 	}
 	
 	public List<BuyerRequest> fetchRecords(String email){
@@ -44,9 +44,9 @@ public class UserService {
 		return status;
 	}
 
-        public void updatePayment(BuyerRequest buyerRequest,String email,int amount) {
-		userDao.updatePayment(buyerRequest,email,amount);
-	}
+//        public void updatePayment(BuyerRequest buyerRequest,String email,int amount) {
+//		userDao.updatePayment(buyerRequest,email,amount);
+//	}
         
         public void updatePayment2(int requestId,int amount) {
     		userDao.updatePayment2(requestId,amount);

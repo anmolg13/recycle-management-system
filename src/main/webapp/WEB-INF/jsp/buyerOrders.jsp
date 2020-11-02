@@ -22,7 +22,6 @@
 	           <th>Payment Date</th>
 	           <th>Status</th>
 	           <th>Paid Amount</th>
-	           <th>Buyer Id</th>
 	           <th>Days Due</th>
 	           <th>Edit Status</th>
 	       </tr>
@@ -37,8 +36,7 @@
 		         <td>${order.requiredDate}</td>
 		         <td>${order.paymentDate}</td>
 		         <td>${order.status}</td>
-		         <td>Rs. ${order.paidAmount}</td>
-		         <td>${order.buyerId}</td>	
+		         <td>Rs. ${order.paidAmount}</td>	
 		         <td>${due[status.index]}</td>
 		         <td><c:if test="${editToShip[status.index]}">
 		         	<a href="/editStatus?requestId=${order.requestId}&orderStatus=2">EDIT</a>

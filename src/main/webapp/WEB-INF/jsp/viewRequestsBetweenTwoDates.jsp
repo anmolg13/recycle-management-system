@@ -28,7 +28,6 @@ table, td, th {
 			<th>Collection date</th>
 			<th>Status</th>
 			<th>Time</th>
-			<th>VendorId</th>
 		</tr>
 		<c:forEach var="req" items="${list}">
 			<tr>
@@ -41,7 +40,6 @@ table, td, th {
 				<td>${req.requiredDate}</td>
 				<td>${req.status}</td>
 				<td>${req.time}</td>
-				<td>${req.vendorId}</td>
 			</tr >
 		</c:forEach>
 		

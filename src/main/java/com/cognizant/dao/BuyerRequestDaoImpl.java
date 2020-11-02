@@ -16,7 +16,7 @@ public class BuyerRequestDaoImpl implements BuyerRequestDao {
 	JdbcTemplate template;
 
 	public List<BuyerRequest> viewBuyerOrders() {
-		String sql="select * from buyer_request order by buyer_id ";
+		String sql="select * from buyer_request";
 		List<BuyerRequest> orders=template.query(sql, new BeanPropertyRowMapper(BuyerRequest.class));
 		return orders;
 	}

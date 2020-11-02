@@ -4,7 +4,6 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 public class User {
-	private int id;
 	
 	//@Size(min=3,max=15,message="First Name should contain 3-15 characters ")
 	private String firstName;
@@ -18,12 +17,7 @@ public class User {
     //@Pattern(regexp="[0-9@#$!]+",message="Password should contain digits and special characters")
 	private String password;
 	private String gender;
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id=id;
-	}
+	
 	public String getFirstName() {
 		return firstName;
 	}

@@ -13,9 +13,17 @@
 <body>
 
 	<h1>Buyer Details</h1>
-	<font color="red">${msg} Total Amount to be paid: Rs ${amount} You need to pay ${pamount} now</font>
+	<c:if test="${sorry}">
+	<font color="red">${sorryMsg}</font>
+	<a href="/buyer">Place order again</a>
+	</c:if>
+	<c:if test="${!sorry}">
+	<font color="red">${msg} Total Amount to be paid: Rs ${amount}.0. You need to pay Rs ${pamount} now as an advance payment.</font>
+
+	
 	<form action="/payment" >
 	<td><button type="submit" id="submit" name="submit">Advance Payment</button></td>
 	</form>
+	</c:if>
 </body>
 </html>

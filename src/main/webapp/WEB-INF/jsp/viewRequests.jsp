@@ -28,7 +28,6 @@ table, td, th {
 			<th>Required date</th>
 			<th>Status</th>
 			<th>Time</th>
-			<th>VendorId</th>
 		</tr>
 		<c:set var="total" value="${0}"/>
 		<c:forEach var="req" items="${list}">
@@ -42,7 +41,6 @@ table, td, th {
 				<td>${req.requiredDate}</td>
 				<td>${req.status}</td>
 				<td>${req.time}</td>
-				<td>${req.vendorId}</td>
 				<c:set var="total" value="${total+req.amount}"/>
 			</tr >
 		</c:forEach>

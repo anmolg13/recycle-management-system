@@ -34,34 +34,21 @@ public class AdminDaoImpl implements AdminDao {
 		return check;
 
 	}
-
+	
 	public List<VendorRequest> getVendorRequests(LocalDate req_date_from_web) {
-
-		return template.query("select * from vendor_request where req_date='" + req_date_from_web + "'",
-				new ResultSetExtractor<List<VendorRequest>>() {
-
-					public List<VendorRequest> extractData(ResultSet rs) throws SQLException {
-
-						List<VendorRequest> list = new ArrayList<VendorRequest>();
-						while (rs.next()) {
-							VendorRequest v = new VendorRequest();
-							v.setRequestId(rs.getInt(1));
-							v.setVendorEmail(rs.getString(2));
-							v.setTypeOfOrg(rs.getString(3));
-							v.setAmount(rs.getInt(4));
-							v.setLocation(rs.getString(5));
-							v.setRequestDate(rs.getDate(6).toLocalDate());
-							v.setRequiredDate(rs.getDate(7).toLocalDate());
-							v.setStatus(rs.getString(8));
-							v.setTime(rs.getTime(9).toString());
-							v.setVendorId(rs.getInt(10));
-							list.add(v);
-						}
-						return list;
-					}
-				});
-
+		String sql = "select * from vendor_request where request_date='" + req_date_from_web + "'";
+		List<VendorRequest> list = template.query(sql, new BeanPropertyRowMapper(VendorRequest.class));
+		return list;
 	}
+
+	@Override
+	public List<VendorRequest> getVendorRequestsBetweenTwoDates(LocalDate startdate, LocalDate enddate) {
+		String sql = "select * from vendor_request where((required_date between'" + startdate + "' and '" + enddate
+				+ "') or (required_date between'" + enddate + "' and '" + startdate + "'))";
+		List<VendorRequest> list = template.query(sql, new BeanPropertyRowMapper(VendorRequest.class));
+		return list;
+	}
+
 	
 	public List<BuyerRequest> viewReportForBuyer(LocalDate date1, LocalDate date2){
 		String sql = "select * from buyer_request where request_date >= '" + date1 + "' AND request_date<= '" + date2
@@ -71,9 +58,7 @@ public class AdminDaoImpl implements AdminDao {
 	}
 
 	public void generateReportForBuyer(LocalDate date1, LocalDate date2) throws Exception {
-		String sql = "select * from buyer_request where request_date >= '" + date1 + "' AND request_date<= '" + date2
-				+ "'";
-		List<BuyerRequest> orders = template.query(sql, new BeanPropertyRowMapper(BuyerRequest.class));
+		List<BuyerRequest> orders=viewReportForBuyer(date1, date2);
 		XSSFWorkbook workbook = new XSSFWorkbook();
 		XSSFSheet spreadsheet = workbook.createSheet("buyer_report");
 
@@ -99,8 +84,6 @@ public class AdminDaoImpl implements AdminDao {
 		cell.setCellValue("STATUS");
 		cell = row.createCell(10);
 		cell.setCellValue("PAID AMOUNT");
-		cell = row.createCell(11);
-		cell.setCellValue("BUYER ID");
 		int i = 2;
 
 		for (BuyerRequest order : orders) {
@@ -132,39 +115,11 @@ public class AdminDaoImpl implements AdminDao {
 			cell.setCellValue(order.getStatus());
 			cell = row.createCell(10);
 			cell.setCellValue(order.getPaidAmount());
-			cell = row.createCell(11);
-			cell.setCellValue(order.getBuyerId());
 			i++;
 		}
 		FileOutputStream out = new FileOutputStream(new File("BUYERS_REPORT.xlsx"));
 		workbook.write(out);
 		out.close();
 		System.out.println("BUYERS_REPORT.xlsx downloaded successfully");
-	}
-	
-	@Override
-	public List<VendorRequest> getVendorRequestsBetweenTwoDates(LocalDate startdate, LocalDate enddate) {
-		return template.query("select * from vendor_request where((req_date between'"+startdate+"' and '"+enddate+"') or (req_date between'"+enddate+"' and '"+startdate+"'))", new ResultSetExtractor<List<VendorRequest>>() {
-
-			public List<VendorRequest> extractData(ResultSet rs) throws SQLException{
-
-				List<VendorRequest> list = new ArrayList<VendorRequest>();
-				while (rs.next()) {
-					VendorRequest v= new VendorRequest();
-					v.setRequestId(rs.getInt(1));
-					v.setVendorEmail(rs.getString(2));
-					v.setTypeOfOrg(rs.getString(3));
-					v.setAmount(rs.getInt(4));
-					v.setLocation(rs.getString(5));
-					v.setRequestDate(rs.getDate(6).toLocalDate());
-					v.setRequiredDate(rs.getDate(7).toLocalDate());
-					v.setStatus(rs.getString(8));
-					v.setTime(rs.getTime(9).toString());
-					v.setVendorId(rs.getInt(10));
-					list.add(v);
-				}
-				return list;
-			}
-		});
 	}
 }

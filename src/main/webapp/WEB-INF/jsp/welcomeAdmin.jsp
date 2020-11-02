@@ -21,7 +21,7 @@
 			<td><a href="/requests">View Vendor Requests</a></td>
 		</tr>
 		<tr>
-			<td><a href="/downloadReportForBuyer">Generate Report for Buyers</a></td>
+			<td><a href="/viewReportForBuyer">Generate Report for Buyers</a></td>
 		</tr>
 		
 	</table>

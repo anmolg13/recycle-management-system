@@ -19,7 +19,6 @@ public class BuyerRequest {
 	private LocalDate paymentDate;
 	private String status;
 	private Integer paidAmount;
-	private Integer buyerId;
 	public Integer getRequestId() {
 		return requestId;
 	}
@@ -28,7 +27,7 @@ public class BuyerRequest {
 		return "BuyerRequest [requestId=" + requestId + ", buyerEmail=" + buyerEmail + ", amount=" + amount
 				+ ", quantity=" + quantity + ", location=" + location + ", requestDate=" + requestDate
 				+ ", requiredDate=" + requiredDate + ", paymentDate=" + paymentDate + ", status=" + status
-				+ ", paidAmount=" + paidAmount + ", buyerId=" + buyerId + "]";
+				+ ", paidAmount=" + paidAmount+ "]";
 	}
 	public void setRequestId(Integer requestId) {
 		this.requestId = requestId;
@@ -86,12 +85,6 @@ public class BuyerRequest {
 	}
 	public void setPaidAmount(Integer paidAmount) {
 		this.paidAmount = paidAmount;
-	}
-	public Integer getBuyerId() {
-		return buyerId;
-	}
-	public void setBuyerId(Integer buyerId) {
-		this.buyerId = buyerId;
 	}
 	
 	

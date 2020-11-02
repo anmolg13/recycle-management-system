@@ -110,4 +110,33 @@ public class ManagerController {
         }
 	}
 	
+
+	//ManagerApproval
+	@RequestMapping(value="/managerapproval")
+	public String managerApproval(HttpServletRequest req)
+	{
+		List<Manager> managerDetails = service.getManagerDetails();
+		req.setAttribute("managerdetails", managerDetails);
+		return "managerApproval";
+	}
+	
+	@RequestMapping(value="/submitApproval")
+	public String submitApproval(HttpServletRequest req)
+	{
+		String managerEmail = req.getParameter("email");
+		String approve = req.getParameter("approve");
+		
+		int i = service.changeManagerApproval(managerEmail, approve);
+		
+		if(i>0)
+		{
+			return "managerApproved";
+		}
+		else
+		{
+			return "managerNotApproved";
+		}
+		
+	}
+	
 }

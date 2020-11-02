@@ -13,6 +13,9 @@
 <body>
 
 <div align="center">
+
+<h1>Manager Registration</h1>
+<br>
 <form:form onsubmit="return managerValidate()"  action="submitForm" modelAttribute="manager" method="post">
 
 <table>
@@ -49,13 +52,17 @@
 
 <tr>
 <td><label for="skills">Select Skill:</label></td>
-<td>Skill1<form:radiobutton path="skill" value="Skill1" name="skills"/>Skill2<form:radiobutton path="skill" value="Skill2" name="skills"/>Skill3<form:radiobutton path="skill" value="Skill3" name="skills"/></td>
+<td>Skill1<form:checkbox path="skill" value="Skill1" name="skills"/>Skill2<form:checkbox path="skill" value="Skill2" name="skills"/>Skill3<form:checkbox path="skill" value="Skill3" name="skills"/>Skill4<form:checkbox path="skill" value="Skill4" name="skills"/></td>
 <td><form:errors path="skill" cssClass="error"/></td>
 </tr>
 
 <tr>
 <td><label for="gender">Select Gender:</label></td>
-<td>Male<form:radiobutton path="gender" value="Male" name="gender"/>Female<form:radiobutton path="gender" value="Male" name="gender"/></td>
+<td><form:select path="gender" name="gender">
+<form:option value="">--Select--</form:option>
+<form:option value="Male">Male</form:option>
+<form:option value="Female">Female</form:option>
+</form:select></td>
 <td><form:errors path="gender" cssClass="error"/></td>
 </tr>
 

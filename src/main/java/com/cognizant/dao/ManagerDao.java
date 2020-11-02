@@ -13,4 +13,8 @@ public interface ManagerDao {
 	public List getVendorRequests();
 	
 	public int changeStatus(int requestId, String status);
+	
+	public List getManagerDetails();
+	
+	public int changeApproval(String email, String approve);
 }

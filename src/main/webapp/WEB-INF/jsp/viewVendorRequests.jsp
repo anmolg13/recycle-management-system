@@ -24,7 +24,6 @@
 <th>Required Date</th>
 <th>Status</th>
 <th>Time</th>
-<th>Vendor Id</th>
 <th>Edit Status</th>
 </tr>
 
@@ -39,7 +38,6 @@
          <td>${req.requiredDate}</td>
          <td>${req.status}</td>
          <td>${req.time}</td>
-         <td>${req.vendorId}</td>
          <td><a href="editstatus">Edit Status</a></td>
        </tr>
      </c:forEach>

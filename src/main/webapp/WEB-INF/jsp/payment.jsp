@@ -34,7 +34,7 @@
 		</tr>
 			<tr>
 			<td><label >Amount: <label></td>
-			<td><input name="paidAmount" id="paidAmount"/></td>
+			<td><input type="number" name="paidAmount" id="paidAmount" value="${paidAmount}" readOnly="readOnly"/></td>
 			
 		</tr>
 			<tr>

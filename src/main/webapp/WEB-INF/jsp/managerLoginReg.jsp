@@ -24,17 +24,6 @@
 <br>
 <br>
 
-<form action="viewrequests">
-<input type="submit" value="View Vendor Requests">
-</form>
-
-<br>
-<br>
-
-<form action="viewOrders">
-<input type="submit" value="View Buyer Requests">
-</form>
-
 </div>
 </body>
 </html>

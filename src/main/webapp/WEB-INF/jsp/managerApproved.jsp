@@ -8,13 +8,7 @@
 </head>
 <body>
 <div align="center">
-<h1>Welcome</h1>
-<form action="viewrequests">
-<input type="submit" value="View Vendor Requests">
-</form>
-<form action="viewOrders">
-<input type="submit" value="View Buyer Requests">
-</form>
+<h1>Manager Approval Status Changed Successfully</h1>
 </div>
 </body>
 </html>

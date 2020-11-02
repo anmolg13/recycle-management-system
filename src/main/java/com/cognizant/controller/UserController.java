@@ -2,6 +2,7 @@ package com.cognizant.controller;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -156,33 +157,39 @@ public class UserController {
 		LOGGER.info("Start");
 		User user = (User) model.get("User");
 		String message;
+		int days = 0;
 		if (buyerRequest.getQuantity() < 10) {
 			message = "We can serve your request today.";
 		} else if (buyerRequest.getQuantity() >= 10 && buyerRequest.getQuantity() < 20) {
+			days = 2;
 			message = "We can serve your request in 2 days.";
 		} else {
+			days = 4;
 			message = "We can serve your request in 4 days.";
 		}
-//		else {
-//			model.put("msg","Maximum quantity allowed is 50 kg!!");
-//			return "buyerHomePage";
-//		}
-		model.put("msg", message);
-		int quantity = buyerRequest.getQuantity();
-		// System.out.print("Qty"+quantity);
-		int amount = quantity * 50;
-		buyerRequest.setAmount(amount);
-		model.put("amount", buyerRequest.getAmount());
-		if (quantity < 10)
-			model.put("pamount", buyerRequest.getAmount());
-		else
-			model.put("pamount", buyerRequest.getAmount() * 0.4);
-		service.insertBuyerRequest(buyerRequest, user.getEmail());
-		model.put("BuyerRequest", buyerRequest);
-		int requestId = buyerRequest.getRequestId();
-		String msg2 = "Your request ID is " + requestId;
-		model.put("msg2", msg2);
-		LOGGER.info("End");
+		LocalDate orderDate = buyerRequest.getRequiredDate();
+		LocalDate today = LocalDate.now();
+		Period period = Period.between(today, orderDate);
+		int availableDays = period.getDays();
+		System.out.print(availableDays);
+		if (availableDays < days) {
+			model.put("sorry", true);
+			model.put("sorryMsg",
+					"We won't be able to serve your request by the date choosen by you. Please select another date.");
+		} else {
+			model.put("msg", message);
+			int quantity = buyerRequest.getQuantity();
+			// System.out.print("Qty"+quantity);
+			int amount = quantity * 50;
+			buyerRequest.setAmount(amount);
+			model.put("amount", buyerRequest.getAmount());
+			if (quantity < 10)
+				model.put("pamount", buyerRequest.getAmount());
+			else
+				model.put("pamount", buyerRequest.getAmount() * 0.4);
+			model.put("BuyerRequest", buyerRequest);
+			LOGGER.info("End");
+		}
 		return "displayBuyerDetails";
 	}
 
@@ -206,37 +213,30 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/payment", method = RequestMethod.GET)
-	public String paymentPage() {
+	public String paymentPage(ModelMap model) {
+		BuyerRequest buyerRequest = (BuyerRequest) model.get("BuyerRequest");
+		if (buyerRequest.getQuantity() < 10) {
+			model.put("paidAmount", (buyerRequest.getAmount()));
+		} else {
+			model.put("paidAmount", (0.4 * buyerRequest.getAmount()));
+		}
 		return "payment";
 	}
 
 	@RequestMapping(value = "/pay", method = RequestMethod.POST)
-	public String pay(ModelMap model, @RequestParam int paidAmount) {
+	public String pay(ModelMap model, @RequestParam String paidAmount) {
 		LOGGER.info("Start");
-		int amount = paidAmount;
+		Double amount1 = Double.parseDouble(paidAmount);
+		int amount = (int) Math.round(amount1);
 
 		BuyerRequest buyerRequest = (BuyerRequest) model.get("BuyerRequest");
 
 		User user = (User) model.get("User");
-
-		String message;
-		if (buyerRequest.getQuantity() < 10 && amount < buyerRequest.getAmount()) {
-			message = "Insufficient amount paid";
-			model.put("msg", message);
-			LOGGER.info("End");
-			return "payment";
-		} else if (buyerRequest.getQuantity() >= 10 && amount < 0.4 * buyerRequest.getAmount()) {
-			message = "Insufficient amount paid";
-			model.put("msg", message);
-			LOGGER.info("End");
-			return "payment";
-		} else {
-			service.updatePayment(buyerRequest, user.getEmail(), amount);
-			message = "Payment Successfull";
-			model.put("msg", message);
-			LOGGER.info("End");
-			return "welcomeUser";
-		}
+		service.insertBuyerRequest(buyerRequest, user.getEmail(), amount);
+		String message = "Payment Successful";
+		model.put("msg", message);
+		LOGGER.info("End");
+		return "welcomeUser";
 
 	}
 
@@ -253,28 +253,15 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/pay2", method = RequestMethod.POST)
-	public String pay2(ModelMap model, @RequestParam int payamount, @RequestParam int paidAmount,
-			@RequestParam int totamount, @RequestParam int requestId) {
+	public String pay2(ModelMap model, @RequestParam int paidAmount, @RequestParam int totamount,
+			@RequestParam int requestId) {
 
 		LOGGER.info("Start");
-		BuyerRequest buyerRequest = (BuyerRequest) model.get("BuyerRequest");
+		// BuyerRequest buyerRequest = (BuyerRequest) model.get("BuyerRequest");
 
-		User user = (User) model.get("User");
-		String message;
-		if (payamount == paidAmount) {
-			service.updatePayment2(requestId, totamount);
-			message = "Payment Successfull";
-			model.put("msg", message);
-			LOGGER.info("End");
-			return "welcomeUser";
-		} else {
-			message = "Insufficient amount paid.";
-			model.put("msg", message);
-			model.put("payamount", payamount);
-			LOGGER.info("End");
-			return "payment2";
-		}
-
+		service.updatePayment2(requestId, totamount);
+		model.put("paySuccess", "Payment Successful");
+		return "welcomeUser";
 	}
 
 }

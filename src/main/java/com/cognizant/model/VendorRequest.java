@@ -16,7 +16,6 @@ public class VendorRequest {
 	private LocalDate requiredDate;
 	private String status;
 	private String time;
-	private int vendorId;
 	
 	public int getRequestId() {
 		return requestId;
@@ -72,14 +71,9 @@ public class VendorRequest {
 	public void setTime(String time) {
 		this.time = time;
 	}
-	public int getVendorId() {
-		return vendorId;
-	}
-	public void setVendorId(int vendorId) {
-		this.vendorId = vendorId;
-	}
+	
 	public VendorRequest(int requestId, String vendorEmail, String typeOfOrg, int amount, String location,
-			LocalDate requestDate, LocalDate requiredDate, String status, String time, int vendorId) {
+			LocalDate requestDate, LocalDate requiredDate, String status, String time) {
 		super();
 		this.requestId = requestId;
 		this.vendorEmail = vendorEmail;
@@ -90,7 +84,6 @@ public class VendorRequest {
 		this.requiredDate = requiredDate;
 		this.status = status;
 		this.time = time;
-		this.vendorId = vendorId;
 	}
 	public VendorRequest() {
 		super();

@@ -35,7 +35,6 @@
 	           <th>Payment Date</th>
 	           <th>Status</th>
 	           <th>Paid Amount</th>
-	           <th>Buyer Id</th>
 	       </tr>
 	       <c:forEach items="${orders}" var="order">
 	       	 <tr>
@@ -49,7 +48,6 @@
 		         <td>${order.paymentDate}</td>
 		         <td>${order.status}</td>
 		         <td>Rs. ${order.paidAmount}</td>
-		         <td>${order.buyerId}</td>	
 	       	 </tr>
 	        </c:forEach>
 	       

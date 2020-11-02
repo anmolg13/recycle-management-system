@@ -33,4 +33,14 @@ public class ManagerService {
 	{
 		return managerdao.changeStatus(requestId, status);
 	}
+	
+	public List getManagerDetails()
+	{
+		return managerdao.getManagerDetails();
+	}
+	
+	public int changeManagerApproval(String email, String approve)
+	{
+		return managerdao.changeApproval(email, approve);
+	}
 }

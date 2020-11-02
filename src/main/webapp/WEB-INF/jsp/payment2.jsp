@@ -13,7 +13,7 @@
 <body>
 
 	<h1>Buyer Home Page</h1>
-	<font color="red">${msg}You need to pay Rs.${payamount}</font>
+	
 	<form method="POST" action="pay2?payamount=${payamount}&totamount=${totamount}&requestId=${requestId}" >
 		<table>
 			<tr>
@@ -34,7 +34,7 @@
 		</tr>
 			<tr>
 			<td><label >Amount: <label></td>
-			<td><input name="paidAmount" id="paidAmount"/></td>
+			<td><input name="paidAmount" id="paidAmount" type="number" readOnly="readOnly" value="${payamount}"/></td>
 			
 		</tr>
 			<tr>

@@ -73,7 +73,6 @@
         <th>Quantity Ordered</th>
         <th>Location</th>
         <th>Order Date</th>
-        <th>Status</th>
         <th>Paid Amount</th>
         <th>Order Status</th>
         <th>Action</th>
@@ -86,7 +85,6 @@
             <td>${order.quantity}</td>
             <td>${order.location}</td>
             <td>${order.requestDate}</td>
-            <td>${order.status}</td>
             <td>Rs. ${order.paidAmount}</td>
             <td>${statusList[status.index]}</td>
             <td>

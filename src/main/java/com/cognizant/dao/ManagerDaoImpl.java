@@ -23,8 +23,8 @@ public class ManagerDaoImpl implements ManagerDao {
 	 @Override
 	public int saveManager(Manager m)
 	{  
-		String insertQuery = "insert into manager (first_name, last_name, email, phone_number, password, gender, skills, approved) values (?, ?, ?, ?, ?, ?, ?, ?)";
-	    int executed =  jdbcTemplate.update( insertQuery, m.getFirstName(), m.getLastName(), m.getEmail(), m.getContact() ,m.getPassword(), m.getGender(), m.getSkill(), "Yes");
+		String insertQuery = "insert into manager (first_name, last_name, email, phone_number, password, gender, skills) values (?, ?, ?, ?, ?, ?, ?)";
+	    int executed =  jdbcTemplate.update( insertQuery, m.getFirstName(), m.getLastName(), m.getEmail(), m.getContact() ,m.getPassword(), m.getGender(), m.getSkill());
 	    return executed;
 	}
 
@@ -47,7 +47,7 @@ public class ManagerDaoImpl implements ManagerDao {
 	public List getVendorRequests() {
 	    List<VendorRequest> requests = new ArrayList<>();
 	    
-	    String selectQuery = "select request_id, vendor_email, type_of_org, amount, location, req_date, when_date, status, time, vendor_id from vendor_request";
+	    String selectQuery = "select request_id, vendor_email, type_of_org, amount, location, req_date, when_date, status, time from vendor_request";
 	    
 	    requests = jdbcTemplate.query(selectQuery,
 	            (rs, rowNum) ->
@@ -60,8 +60,7 @@ public class ManagerDaoImpl implements ManagerDao {
               LocalDate.parse( new SimpleDateFormat("yyyy-MM-dd").format(rs.getDate("req_date"))),
               LocalDate.parse( new SimpleDateFormat("yyyy-MM-dd").format(rs.getDate("when_date"))),
               rs.getString("status"),
-              rs.getString("time"),
-              rs.getInt("vendor_id")
+              rs.getString("time")
         )
 );
 	    
@@ -77,6 +76,39 @@ public class ManagerDaoImpl implements ManagerDao {
 		
 		return affectedRows;
 		
+	}
+
+	@Override
+	public List getManagerDetails() {
+		
+		 List<Manager> managerDetails = new ArrayList<>();
+		 
+		    String selectQuery = "select first_name, last_name, email, phone_number, password ,gender, skills, approved from manager";
+
+		    managerDetails = jdbcTemplate.query(selectQuery,
+		            (rs, rowNum) ->
+	              new Manager(
+	              rs.getString("first_name"),
+	              rs.getString("last_name"),
+	              rs.getString("email"),
+	              rs.getString("phone_number"),
+	              rs.getString("password"),
+	              rs.getString("gender"),
+	              rs.getString("skills"),
+	              rs.getString("approved")
+	        )
+	              );
+		 
+		return managerDetails;
+	}
+
+	@Override
+	public int changeApproval(String email, String approve) {
+		
+		String updateQuery = "update manager set approved='"+approve+"' where email ='"+email+"'";
+		int affectedRows =  jdbcTemplate.update(updateQuery);
+		System.out.println(affectedRows);
+		return affectedRows;
 	}  
 	
 	
