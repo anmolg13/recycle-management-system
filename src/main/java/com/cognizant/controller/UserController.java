@@ -52,10 +52,6 @@ public class UserController {
 		return list;
 	}
 
-	@RequestMapping(value = "/homePage", method = RequestMethod.GET)
-	public String homePage(ModelMap model) {
-		return "homePage";
-	}
 
 	@RequestMapping(value = "/userHomePage", method = RequestMethod.GET)
 	public String userHomePage(ModelMap model) {

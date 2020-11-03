@@ -23,6 +23,10 @@
 		<tr>
 			<td><a href="/viewReportForBuyer">Generate Report for Buyers</a></td>
 		</tr>
+		<tr>
+			<td><a href="/managerapproval">Approve Manager</a></td>
+		</tr>
+		<a href="/recycleManagementHomePage"><button>Logout</button></a>
 		
 	</table>
 </body>

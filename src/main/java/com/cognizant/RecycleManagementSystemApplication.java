@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan({"com.cognizant.controller","com.cognizant.dao","com.cognizant.model","com.cognizant.service"})
+@ComponentScan({"com.cognizant","com.cognizant.controller","com.cognizant.dao","com.cognizant.model","com.cognizant.service"})
 public class RecycleManagementSystemApplication {
 
 	public static void main(String[] args) {

@@ -24,7 +24,7 @@ public class AdminController {
 	@Autowired
 	AdminService adminservice;
 
-	@RequestMapping(value = "/loginAdmin", method = RequestMethod.GET)
+	@RequestMapping(value = "/adminHomePage", method = RequestMethod.GET)
 	public String showAdminLoginPage(ModelMap model) {
 		// model.put("name",name);
 		return "loginAdmin";
