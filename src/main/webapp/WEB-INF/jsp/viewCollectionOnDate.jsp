@@ -34,7 +34,7 @@
 </nav>
 	<div class="container">
 		<table class="table table-striped">
-			<caption style="text-align: center">List of Requests for
+			<caption style="text-align: center">List of Collections for
 				${date}</caption>
 			<tr>
 				<th>Request Id</th>
@@ -66,7 +66,7 @@
 		</table>
 		<table class="table table-striped">
 			<tr>
-				<th>Total waste supposed to be received</th>
+				<th>Total wastes received</th>
 			</tr>
 			<tr>
 				<td>${total}</td>
@@ -82,16 +82,15 @@
 					<td><input type="date" name="date" id="date"
 						max="${currentDate}" required="required" /></td>
 					<td><button id="btn-success" type="submit" id="submit"
-							name="submit">Click to View Collections</button></td>
-				
+							name="submit">Click to View Requests</button></td>
 				</tr>
 			</table>
 		</form>
-		<form method="GET" action="/requests">
-		<table class="table table-striped">
-		<td><button id="btn-success" type="submit">Update Page</button></td>	
-		</table>
-		</form>
+		<div>
+			<h3>
+				<a href="/wastageReport">Click Here</a> to check wastage report
+			</h3>
+		</div>
 	</div>
 
 	<script src="webjars/jquery/1.9.1/jquery.min.js"></script>

@@ -9,182 +9,89 @@
 <style>  
 .error{color:red}  
 </style>  
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
 
-<div align="center">
+<nav class="navbar navbar-custom">
+  <div class="container-fluid">
+     
+     <div class="navbar-header">
+        <button class="btn btn-info btn-lg" id="goback" onclick = "history.go(-1);">
+          <span class="glyphicon glyphicon-arrow-left"></span> Go Back
+        </button>
+    </div>
+    
+   <div class="navbar-custom" style="text-align: center;">
+				<span class="navbar-style">Recycle Management System</span>
+			</div>
+    
+    
+    </div>
+</nav>
 
-<h1>Manager Registration</h1>
-<br>
-<form:form onsubmit="return managerValidate()"  action="submitForm" modelAttribute="manager" method="post">
+<div class="container content">
+<div style="background: rgb(139,0,139);" class="jumbotron heading">
+<h1 style="color: white; text-align: center">Manager Registration</h1>
+</div>
 
-<table>
-
-<tr>
-<td><label for="firstname">First Name:</label></td>
-<td><form:input path="firstName" type="text" placeholder="Enter FirstName" id="firstname"/></td>
-<td id="firstnameerrormsg"><form:errors path="firstName" cssClass="error"/></td>
-</tr>
-
-<tr>
-<td><label for="lastname">Last Name:</label></td>
-<td><form:input path="lastName" type="text" placeholder="Enter LastName" id="lastname"/></td>
-<td id="lastnameerrormsg"><form:errors path="lastName" cssClass="error"/></td>
-</tr>
-
-<tr>
-<td><label for="contact">Contact Number:</label></td>
-<td><form:input path="contact" type="text" placeholder="Enter Contact Number" id="contact" pattern="[0-9]+"/></td>
-<td id="contacterrormsg"><form:errors path="contact" cssClass="error"/></td>
-</tr>
-
-<tr>
-<td><label for="email">Email:</label></td>
-<td><form:input path="email" type="text" placeholder="Enter Email" id="email"/></td>
-<td id = "emailerrormsg"><form:errors path="email" cssClass="error"/></td>
-</tr>
-
-<tr>
-<td><label for="password">Password:</label></td>
-<td><form:input path="password" type="text" placeholder="Enter Password" id="password"/></td>
-<td id= "passerrormsg"><form:errors path="password" cssClass="error"/></td>
-</tr>
-
-<tr>
-<td><label for="skills">Select Skill:</label></td>
-<td>Skill1<form:checkbox path="skill" value="Skill1" name="skills"/>Skill2<form:checkbox path="skill" value="Skill2" name="skills"/>Skill3<form:checkbox path="skill" value="Skill3" name="skills"/>Skill4<form:checkbox path="skill" value="Skill4" name="skills"/></td>
-<td><form:errors path="skill" cssClass="error"/></td>
-</tr>
-
-<tr>
-<td><label for="gender">Select Gender:</label></td>
-<td><form:select path="gender" name="gender">
-<form:option value="">--Select--</form:option>
+<form:form class="form-style-2" onsubmit="return managerValidate()"  action="submitForm" modelAttribute="manager" method="post">
+<span class="border border-secondary">
+<table class="table">
+  <tr>
+   <td><label for="firstname" class="label label-primary">First Name</label></td>
+   <td><form:input path="firstName" type="text" placeholder="Enter FirstName" id="firstname" class="form-control" required="required"/></td>
+   <td><small class="form-text text-muted" id="firstnameerrormsg"></small></td>
+  </tr>
+  
+  <tr>
+   <td><label for="lastname" class="label label-primary">Last Name</label></td>
+   <td><form:input path="lastName" type="text" placeholder="Enter LastName" id="lastname" class="form-control" required="required"/></td>
+    <td><small class="form-text text-muted" id="lastnameerrormsg"></small></td>
+  </tr>
+  
+  <tr>
+   <td><label for="contact" class="label label-primary">Contact Number</label></td>
+   <td><form:input path="contact" type="text" placeholder="Enter Contact Number" id="contact" class="form-control" pattern="[0-9]+" required="required"/></td>
+    <td><small class="form-text text-muted" id="contacterrormsg"></small></td>
+  </tr>
+  
+ <tr>
+   <td><label for="email" class="label label-primary">Email</label></td>
+   <td><form:input path="email" type="text" placeholder="Enter Email" id="email" class="form-control" required="required"/></td>
+    <td><small class="form-text text-muted" id="emailerrormsg"></small></td>
+  </tr>
+  
+  <tr>
+   <td><label for="password" class="label label-primary">Password</label></td>
+   <td><form:input path="password" type="text" placeholder="Enter Password" id="password" class="form-control" required="required"/></td>
+    <td><small class="form-text text-muted" id="passerrormsg"></small></td>
+  </tr>
+  
+  <tr>
+   <td><label for="skills" class="label label-primary">Select Skill:</label></td>
+   <td>Skill1<form:checkbox path="skill" value="Skill1" name="skills"/>Skill2<form:checkbox path="skill" value="Skill2" name="skills"/>Skill3<form:checkbox path="skill" value="Skill3" name="skills"/>Skill4<form:checkbox path="skill" value="Skill4" name="skills"/></td>
+  </tr>
+  
+  <tr>
+   <td><label for="gender" class="label label-primary">Select Gender</label></td>
+   <td><form:select path="gender" name="gender">
 <form:option value="Male">Male</form:option>
 <form:option value="Female">Female</form:option>
 </form:select></td>
-<td><form:errors path="gender" cssClass="error"/></td>
-</tr>
+  </tr>
+  
+  <tr>		
+	<td><button class="btn btn-success" type="submit" id="submit" name="submit">Submit</button></td>
+	<td><button class="btn btn-warning" type="reset" id="reset" name="reset">Clear</button></td>
+ </tr>
+  
 
-<tr>
-<td><input type="submit" value="submit"></td>
-<td><input type="reset" value="reset"></td>
-<td></td>
-</tr>
-
-</table>
+  </table>
+  </span>
 </form:form>
 
-<script type="text/javascript">
-function managerValidate()
-{
-	
-
-    var flag = true;
-    
-	var firstname = document.getElementById("firstname");
-	if(firstname.value.length<3 || firstname.value.length>15)
-	{
-		firstname.style.borderColor="red";
-		firstname.style.backgroundColor = "#fc566c";
-		var errormsg = document.getElementById("firstnameerrormsg");
-		errormsg.innerHTML = "length should be 3-15";
-		errormsg.style.color = "red";
-		flag = false;
-	}
-	else
-	{
-		firstname.style.borderColor="";
-		firstname.style.backgroundColor = "";
-		var errormsg = document.getElementById("firstnameerrormsg");
-		errormsg.innerHTML = "";
-		errormsg.style.color = "";
-	}
-
-	var lastname = document.getElementById("lastname");
-	if(lastname.value.length<3 || lastname.value.length>15)
-	{
-	lastname.style.borderColor="red";
-	lastname.style.backgroundColor = "#fc566c";
-	var errormsg = document.getElementById("lastnameerrormsg");
-	errormsg.innerHTML = "length should be 3-15";
-	errormsg.style.color = "red";
-	flag = false;
-	}
-	else
-	{
-		lastname.style.borderColor="";
-		lastname.style.backgroundColor = "";
-		var errormsg = document.getElementById("lastnameerrormsg");
-		errormsg.innerHTML = "";
-		errormsg.style.color = "";
-	}
-
-	var contact = document.getElementById("contact");
-	if(contact.value.length!=10)
-	{
-	contact.style.borderColor="red";
-	contact.style.backgroundColor = "#fc566c";
-	var errormsg = document.getElementById("contacterrormsg");
-	errormsg.innerHTML = "enter correct contact number";
-	errormsg.style.color = "red";
-	flag = false;
-	}
-	else
-	{
-		contact.style.borderColor="";
-		contact.style.backgroundColor = "";
-		var errormsg = document.getElementById("contacterrormsg");
-		errormsg.innerHTML = "";
-		errormsg.style.color = "";
-	}
-	
-	var email = document.getElementById("email");
-	var patt = /[a-zA-Z0-9]+@[a-zA-Z0-9]/g;
-	if(!patt.test(email.value))
-		{
-		email.style.borderColor="red";
-		email.style.backgroundColor = "#fc566c";
-		var errormsg = document.getElementById("emailerrormsg");
-		errormsg.innerHTML = "enter correct email";
-		errormsg.style.color = "red";
-		flag = false;
-		}
-	    else
-		{
-		email.style.borderColor="";
-		email.style.backgroundColor = "";
-		var errormsg = document.getElementById("emailerrormsg");
-		errormsg.innerHTML = "";
-		errormsg.style.color = "";
-		}
-
-	var password = document.getElementById("password");
-	if(password.value.length<6)
-	{
-		password.style.borderColor="red";
-		password.style.backgroundColor = "#fc566c";
-		var errormsg = document.getElementById("passerrormsg");
-		errormsg.innerHTML = "password length should be minimum 6";
-		errormsg.style.color = "red";
-		flag = false;
-		}
-	    else
-		{
-		password.style.borderColor="";
-		password.style.backgroundColor = "";
-		var errormsg = document.getElementById("passerrormsg");
-		errormsg.innerHTML = "";
-		errormsg.style.color = "";
-		}
-
-	if(!flag)
-		{
-	alert("Please update the highlighted manadatory field");
-		}
-	return flag;
-	}
-</script>
-</div>
+<script type="text/javascript" src="js/script.js"></script>
 </body>
 </html>

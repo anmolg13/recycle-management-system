@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.cognizant.controller.AdminController;
+import com.cognizant.controller.BuyerRequestController;
+import com.cognizant.controller.LogoutController;
 import com.cognizant.controller.ManagerController;
 import com.cognizant.controller.UserController;
 import com.cognizant.controller.WelcomeController;
@@ -25,6 +27,12 @@ public class SmokeTest {
 
 	@Autowired
 	private ManagerController managerController;
+	
+	@Autowired
+	private BuyerRequestController buyerRequestController;
+	
+	@Autowired
+	private LogoutController logoutController;
 
 	@Test
 	public void contextLoads() throws Exception {
@@ -32,5 +40,7 @@ public class SmokeTest {
 		assertThat(adminController).isNotNull();
 		assertThat(userController).isNotNull();
 		assertThat(managerController).isNotNull();
+		assertThat(buyerRequestController).isNotNull();
+		assertThat(logoutController).isNotNull();
 	}
 }

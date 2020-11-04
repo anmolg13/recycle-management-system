@@ -20,14 +20,24 @@ public class ManagerDaoImpl implements ManagerDao {
 	 @Autowired
     JdbcTemplate jdbcTemplate;  
 	
+	 //return -1 if email already exist
 	 @Override
 	public int saveManager(Manager m)
 	{  
+		String checkEmail = "select count(*) from manager where email='"+m.getEmail()+"'";
+		int i = jdbcTemplate.queryForObject(checkEmail, Integer.class);
+		if(i<1)
+		{
 		String insertQuery = "insert into manager (first_name, last_name, email, phone_number, password, gender, skills) values (?, ?, ?, ?, ?, ?, ?)";
 	    int executed =  jdbcTemplate.update( insertQuery, m.getFirstName(), m.getLastName(), m.getEmail(), m.getContact() ,m.getPassword(), m.getGender(), m.getSkill());
 	    return executed;
+		}
+		else
+		{
+			return -1;
+		}
 	}
-
+	 
     @Override
 	public boolean checkManagerCredentials(String email, String password) {
 		String selectQuery = "select count(*) from manager where email='"+email+"' and password='"+password+"' and approved='yes'";
@@ -47,7 +57,7 @@ public class ManagerDaoImpl implements ManagerDao {
 	public List getVendorRequests() {
 	    List<VendorRequest> requests = new ArrayList<>();
 	    
-	    String selectQuery = "select request_id, vendor_email, type_of_org, amount, location, req_date, when_date, status, time from vendor_request";
+	    String selectQuery = "select request_id, vendor_email, type_of_org, amount, location, request_date, required_date, status, time from vendor_request";
 	    
 	    requests = jdbcTemplate.query(selectQuery,
 	            (rs, rowNum) ->
@@ -57,8 +67,8 @@ public class ManagerDaoImpl implements ManagerDao {
               rs.getString("type_of_org"),
               rs.getInt("amount"),
               rs.getString("location"),
-              LocalDate.parse( new SimpleDateFormat("yyyy-MM-dd").format(rs.getDate("req_date"))),
-              LocalDate.parse( new SimpleDateFormat("yyyy-MM-dd").format(rs.getDate("when_date"))),
+              LocalDate.parse( new SimpleDateFormat("yyyy-MM-dd").format(rs.getDate("request_date"))),
+              LocalDate.parse( new SimpleDateFormat("yyyy-MM-dd").format(rs.getDate("required_date"))),
               rs.getString("status"),
               rs.getString("time")
         )
@@ -107,7 +117,6 @@ public class ManagerDaoImpl implements ManagerDao {
 		
 		String updateQuery = "update manager set approved='"+approve+"' where email ='"+email+"'";
 		int affectedRows =  jdbcTemplate.update(updateQuery);
-		System.out.println(affectedRows);
 		return affectedRows;
 	}  
 	

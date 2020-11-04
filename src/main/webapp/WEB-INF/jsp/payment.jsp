@@ -7,41 +7,66 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>User</title>
+<link rel="stylesheet" href="/css/styles.css">
 <link href="webjars/bootstrap/3.3.6/css/bootstrap.min.css"
 	rel="stylesheet">
 </head>
 <body>
+<nav class="navbar navbar-default bg-success navbar-dark">
+		<div class="container-fluid">
 
-	<h1>Buyer Home Page</h1>
+			<div class="navbar-header navbar-right">
+				<a href="/recycleManagementHomePage">
+					<button onclick="myFunction()" class="btn btn-info btn-lg">
+						<span class="glyphicon glyphicon-log-out"></span> Log out
+					</button>
+				</a>
+			</div>
+
+			
+
+			<div class="navbar-custom" style="text-align: center;">
+				<span class="navbar-style">Recycle Management System</span>
+			</div>
+
+		</div>
+	</nav>
+	<div class="container content">
+		<div style="background: rgb(139, 0, 139);" class="jumbotron heading">
+			<h1 style="color: white; text-align: center">Payment Details</h1>
+		</div>
 	<font color="red">${msg}</font>
 	<form method="POST" action="pay" >
-		<table>
+	
+		<table class="table ">
 			<tr>
-			<td><label >Mode of Payment: <label></td>
-			<td><input type="radio" name=mode value="Credit Card"/>Credit Card</td>
-			<td><input type="radio" name=mode value="Debit Card"/>Debit Card</td>
+			<td><label >Mode of Payment: </label></td>
+			<td><input type="radio" name=mode value="Credit Card" required="required"/> Credit Card </td>
+			<td><input type="radio" name=mode value="Debit Card" required="required"/> Debit Card </td>
 			
 		</tr>
 		<tr>
-			<td><label >Card No: <label></td>
-			<td><input id="cardno"/></td>
+			<td><label >Card No: </label></td>
+			<td><input id="cardno" required="required"/></td>
 			
 		</tr>
 		<tr>
-			<td><label >Card Holder's Name: <label></td>
-			<td><input id="name"/></td>
+			<td><label >Card Holder's Name: </label></td>
+			<td><input id="name" required="required"/></td>
 			
 		</tr>
 			<tr>
-			<td><label >Amount: <label></td>
+			<td><label >Amount: </label></td>
 			<td><input type="number" name="paidAmount" id="paidAmount" value="${paidAmount}" readOnly="readOnly"/></td>
 			
 		</tr>
 			<tr>
-				<td><button type="submit" id="submit" name="submit">Pay</button></td>
+				<td><button id="btn-success" type="submit" id="submit" name="submit">Pay</button></td>
 				
 			</tr>
 		</table>
-	<form>
+	</form>
+	</div>
+	<script type="text/javascript" src="js/script.js"></script>
 </body>
 </html>

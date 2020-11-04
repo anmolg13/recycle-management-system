@@ -7,35 +7,37 @@
 <!DOCTYPE html>
 <html>
 <head>
-<style>
-.table {
-    border-collapse: separate;
-    border-spacing:0 20px;
-    border: 1px;
-}
-label {
-    display: inline;
-    padding: .2em .6em .3em;
-    font-size: 110% !important;
-    font-weight: 700;
-    width: -webkit-fill-available;
-    line-height: 1;
-    color: #fff;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: baseline;
-    border-radius: .25em;
-    }
-
-</style>
+<link rel="stylesheet" href="/css/styles.css">
+	<link href="webjars/bootstrap/3.3.6/css/bootstrap.min.css"
+	rel="stylesheet">
 <meta charset="ISO-8859-1">
 <title>USER LOGIN</title>
-<link href="webjars/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
+<nav class="navbar navbar-default bg-success navbar-dark">
+  <div class="container-fluid">
+  
+    <div class="navbar-header navbar-right">
+      <a href="/recycleManagementHomePage">  <button onclick="myFunction()" class="btn btn-info btn-lg">
+          <span class="glyphicon glyphicon-log-out"></span> HomePage
+        </button></a>
+    </div>
+    
+      <div class="navbar-header">
+        <button class="btn btn-info btn-lg" id="goback" onclick = "history.go(-1);">
+          <span class="glyphicon glyphicon-arrow-left"></span> Go Back
+        </button>
+    </div>
+
+    <div class="navbar-custom" style="text-align:center;">
+        <span  class="navbar-style">Recycle Management System</span>
+    </div>
+
+    </div>
+</nav>
 <div class="container content">
 <div style="background: rgb(139,0,139);" class="jumbotron heading">
-<h1 style="color: white; text-align: center">Recycle Management System</h1>
+<h1 style="color: white; text-align: center">User Login</h1>
 </div>
 	<font color="red">${message}</font>
 	<form method="post" action="/loginUser">
@@ -43,11 +45,11 @@ label {
 	<table class="table">
 		<tr>
 			<td><label class="label label-primary" for="name" >Email:</label></td>
-			<td><input type="text" name="email" class="form-control"/></td>
+			<td><input type="text" name="email" class="form-control" required="required"/></td>
 		</tr>
 		<tr>
 			<td><label class="label label-primary" for="password" >Password:</label></td>
-			<td><input type="password" name="password" class="form-control"/></td>
+			<td><input type="password" name="password" class="form-control" required="required"/></td>
 		</tr>
 		<tr>
 			<td><button class="btn btn-success" type="submit" id="submit" name="submit">Submit</button></td>
@@ -55,6 +57,6 @@ label {
 		</tr>
 	</table>
 </form>
-
+<script type="text/javascript" src="js/script.js"></script>
 </body>
 </html>

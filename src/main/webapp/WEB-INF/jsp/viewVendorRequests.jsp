@@ -7,13 +7,40 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
+<link href="webjars/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
 
+<nav class="navbar navbar-custom">
+  <div class="container-fluid">
+  
+    <div class="navbar-header navbar-right">
+        <button onclick="logout()" class="btn btn-info btn-lg">
+          <span class="glyphicon glyphicon-log-out"></span> Log out
+        </button>
+    </div>
+    
+    <div class="navbar-header">
+        <button class="btn btn-info btn-lg" id="goback" onclick = "history.go(-1);">
+          <span class="glyphicon glyphicon-arrow-left"></span> Go Back
+        </button>
+    </div>
+    
+    <div class="navbar-custom" style="text-align:center;">
+        <span  class="navbar-style">Recycle Management System</span>
+    </div>
+    
+    </div>
+</nav>
+
+<div class="container content">
+<div style="background: rgb(139,0,139);" class="jumbotron heading">
+<h1 style="color: white; text-align: center">Vendor Requests</h1>
+</div>
+
 <div align="center">
-<h1>Vendor Requests</h1>
-<form>
-<table border="1">
+<table class="table table-striped">
 <tr>
 <th>Request Id</th>
 <th>Vendor Email</th>
@@ -38,12 +65,20 @@
          <td>${req.requiredDate}</td>
          <td>${req.status}</td>
          <td>${req.time}</td>
-         <td><a href="editstatus">Edit Status</a></td>
+         <td><select name="status" id="status">
+<option value="New">New</option>
+<option value="Waiting for Truck Availability">Waiting for Truck Availability</option>
+<option value="Truck Send">Truck Send</option>
+<option value="Received">Received</option>
+</select>
+<a id="myAnchor" type="button" class="btn btn-success" onclick="editvendorrequest(${req.requestId})">Edit</a>
+</td>
        </tr>
      </c:forEach>
 </table>
-</form>
 
 </div>
+</div>
+<script type="text/javascript" src="js/script.js"></script>
 </body>
 </html>

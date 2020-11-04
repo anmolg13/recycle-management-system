@@ -5,16 +5,42 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
+<link href="webjars/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
+
+<nav class="navbar navbar-custom">
+  <div class="container-fluid">
+  
+  <div class="navbar-header navbar-right">
+        <button onclick="logout()" class="btn btn-info btn-lg">
+          <span class="glyphicon glyphicon-log-out"></span> Log out
+        </button>
+    </div>
+    
+     <div class="navbar-header">
+        <button class="btn btn-info btn-lg" id="goback" onclick = "history.go(-1);">
+          <span class="glyphicon glyphicon-arrow-left"></span> Go Back
+        </button>
+    </div>
+    
+   <div class="navbar-custom" style="text-align: center;">
+				<span class="navbar-style">Recycle Management System</span>
+			</div>
+    
+    </div>
+</nav>
+
+<div class="alert alert-success" role="alert" align="center">Welcome ${name} you have logged in successfully</div>
 <div align="center">
-<h1>Welcome</h1>
+<br>
 <form action="viewrequests">
-<input type="submit" value="View Vendor Requests">
-</form>
-<form action="viewOrders">
-<input type="submit" value="View Buyer Requests">
+<button type="submit" value="View Vendor Requests" class="btn btn-success">Click here to view Vendors Requests</button>
 </form>
 </div>
+
+<script type="text/javascript" src="js/script.js"></script>
+
 </body>
 </html>

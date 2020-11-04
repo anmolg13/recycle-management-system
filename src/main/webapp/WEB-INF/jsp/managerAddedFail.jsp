@@ -9,29 +9,25 @@
 <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
-
 <nav class="navbar navbar-custom">
   <div class="container-fluid">
   
-    <div class="navbar-header navbar-right">
-       <button onclick="logout()" class="btn btn-info btn-lg">
-          <span class="glyphicon glyphicon-log-out"></span> Log out
-        </button>
-    </div>
     
-    <div class="navbar-header">
+     <div class="navbar-header">
         <button class="btn btn-info btn-lg" id="goback" onclick = "history.go(-1);">
           <span class="glyphicon glyphicon-arrow-left"></span> Go Back
         </button>
     </div>
     
-   <div class="navbar-custom" style="text-align: center;">
+    <div class="navbar-custom" style="text-align: center;">
 				<span class="navbar-style">Recycle Management System</span>
 			</div>
+    
     </div>
-</nav>
+    </nav>
+<div class="alert alert-danger" role="alert" align="center">Manager With The Given Email Already Exist. Submit Form With Another Email.</div>
 
-<div class="alert alert-success" role="alert" align="center">Manager Approval Status Changed Successfully</div>
 <script type="text/javascript" src="js/script.js"></script>
+
 </body>
 </html>

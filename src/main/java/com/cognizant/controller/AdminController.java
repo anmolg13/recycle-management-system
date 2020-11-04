@@ -3,6 +3,8 @@ package com.cognizant.controller;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -23,6 +25,8 @@ public class AdminController {
 
 	@Autowired
 	AdminService adminservice;
+	
+	private static final Logger LOGGER = LogManager.getLogger(AdminController.class);
 
 	@RequestMapping(value = "/adminHomePage", method = RequestMethod.GET)
 	public String showAdminLoginPage(ModelMap model) {
@@ -30,40 +34,46 @@ public class AdminController {
 		return "loginAdmin";
 	}
 
-	/* It provides list of requests in model object */
-	@RequestMapping(value = "/requests", method = RequestMethod.GET)
-	public String vendorRequestsDefault(Model m) {
-		List<VendorRequest> list = adminservice.getRequests(LocalDate.now());
-		if (list.isEmpty())
-			System.out.println("Empty List");
-		m.addAttribute("list", list);
-		m.addAttribute("currentDate", LocalDate.now());
-		return "viewRequests";
-	}
-
-	@RequestMapping(value = "/requestOnDate", method = RequestMethod.GET)
-	public String vendorRequestsChosen(Model m,
-			@RequestParam("date") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date) {
-		/*
-		 * ZoneId defZoneId=ZoneId.systemDefault(); Instant instant=date.toInstant();
-		 * LocalDate properDate=instant.atZone(defZoneId).toLocalDate();
-		 */
-		List<VendorRequest> list = adminservice.getRequests(date);
-		if (list.isEmpty())
-			System.out.println("Empty List");
-		m.addAttribute("list", list);
-		return "viewRequests";
-	}
-
 	@RequestMapping(value = "/loginAdmin", method = RequestMethod.POST)
 	public String showAdminWelcomePage(ModelMap model, @RequestParam String username, @RequestParam String password) {
+		LOGGER.info("Admin Credentials sent for validation ");
 		boolean isValidUser = adminservice.validateAdmin(username, password);
 		if (!isValidUser) {
 			model.put("message", "Invalid Credentials");
+			LOGGER.info("Admin Credentials are Invalid , returning to Login Admin page  ");
 			return "loginAdmin";
 		}
+		LOGGER.info("Admin Credentials are Valid , Going to Welcome Admin page  ");
 		return "welcomeAdmin";
 	}
+	
+	/* It provides list of requests in model object */
+	@RequestMapping(value = "/requests", method = RequestMethod.GET)
+	public String vendorRequestsDefault(Model m) {
+		LOGGER.info("Showing Vendor Requests for today");
+		List<VendorRequest> list = adminservice.getTodayRequests(LocalDate.now());
+		if (list.isEmpty()) {
+			LOGGER.info("No Vendor Requests for today");
+		}
+		m.addAttribute("list", list);
+		m.addAttribute("currentDate", LocalDate.now());
+		m.addAttribute("date", LocalDate.now());
+		return "viewRequests";
+	}
+	@RequestMapping(value = "/requestOnDate", method = RequestMethod.GET)
+	public String vendorRequestsChosen(Model m,
+			@RequestParam("date") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date) {
+		LOGGER.info("Showing Vendor Collections for selected date");
+		List<VendorRequest> list = adminservice.getCollections(date);
+		if (list.isEmpty())
+			LOGGER.info("No Vendor Collections for selected date");
+		m.addAttribute("list", list);
+		m.addAttribute("currentDate", LocalDate.now());
+		m.addAttribute("date", date);
+		return "viewCollectionOnDate";
+	}
+
+
 
 	@RequestMapping(value = "/viewReportForBuyer", method = RequestMethod.GET)
 	public String generateBuyerReport(ModelMap model) {
@@ -103,23 +113,40 @@ public class AdminController {
 		return "downloadReport";
 	}
 	
-	@RequestMapping(value = "/datesForWastageReport")
-	public String wastageReportHome(Model m) {
+	@RequestMapping(value = "/wastageReport",method=RequestMethod.GET)
+	public String wastageReportDateCollection(Model m) {
 		m.addAttribute("yesterday", LocalDate.now().minusDays(1));
 		return "wastageReportHome";
 
 	}
-
-	@RequestMapping(value = "/requestBetweenDates", method = RequestMethod.GET)
-	public String wastageReport(Model m,
-			@RequestParam("startdate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate startdate,
-			@RequestParam("enddate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate enddate) {
-				
-		List<VendorRequest> list = adminservice.getRequestsBetweenTwoDates(startdate,enddate);
-		if (list.isEmpty())
-			System.out.println("Empty List");
-		m.addAttribute("list", list);
-		return "viewRequestsBetweenTwoDates";
-
+	
+	@RequestMapping(value = "/wastageReport",method=RequestMethod.POST)
+	public String wastageReportCollectionDisplay(@RequestParam("startdate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate startdate,
+			@RequestParam("enddate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate enddate, ModelMap model,Model m) {
+		model.put("startdate", startdate);
+		model.put("enddate", enddate);
+		m.addAttribute("yesterday", LocalDate.now().minusDays(1));
+		if (enddate.compareTo(startdate) <= 0) {
+			model.put("status", false);
+			model.put("msg", "To date should be greater than From Date");
+		} else {
+			List<VendorRequest> list = adminservice.getVendorCollectionsBetweenTwoDates(startdate,enddate);
+			if (list.isEmpty()) {
+				model.put("msg2", "No Records Found");
+			} else {
+				model.put("status", true);
+				model.put("list", list);
+			}
+		}
+		return "wastageReportHome";
+	}
+	
+	@RequestMapping(value = "/downloadReportForVendor", method = RequestMethod.GET)
+	public String generateVendorCollectionReport(ModelMap model,@RequestParam("startdate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate startdate,
+			@RequestParam("enddate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate enddate)
+			throws Exception {
+		adminservice.generateReportForVendor(startdate, enddate);
+		model.put("msg", "REPORT HAS BEEN DOWNLOADED AS VENDORS_REPORT.xlsx.");
+		return "downloadReportVendor";
 	}
 }
