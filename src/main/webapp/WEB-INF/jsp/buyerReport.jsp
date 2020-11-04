@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>User</title>
+<title>Buyer Orders</title>
 <link rel="stylesheet" href="/css/styles.css">
 <link href="webjars/bootstrap/3.3.6/css/bootstrap.min.css"
 	rel="stylesheet">
@@ -25,7 +25,7 @@
 
 			<div class="navbar-header">
 				<button class="btn btn-info btn-lg" id="goback"
-					onclick="history.go(-1);">
+					onclick="goToAdminPage()">
 					<span class="glyphicon glyphicon-arrow-left"></span> Go Back
 				</button>
 			</div>
@@ -101,7 +101,6 @@
 				</tr>
 			</c:if>
 		</table>
-<script type="text/javascript" src="js/script.js"></script>
-
+		<script type="text/javascript" src="js/script.js"></script>
 </body>
 </html>

@@ -30,7 +30,7 @@ public class AdminDaoImpl implements AdminDao {
 		return check;
 
 	}
-	
+
 	public List<VendorRequest> getVendorRequestsForToday(LocalDate req_date_from_web) {
 		String sql = "select * from vendor_request where request_date='" + req_date_from_web + "'";
 		List<VendorRequest> list = template.query(sql, new BeanPropertyRowMapper(VendorRequest.class));
@@ -51,8 +51,7 @@ public class AdminDaoImpl implements AdminDao {
 		return list;
 	}
 
-	
-	public List<BuyerRequest> viewReportForBuyer(LocalDate date1, LocalDate date2){
+	public List<BuyerRequest> viewReportForBuyer(LocalDate date1, LocalDate date2) {
 		String sql = "select * from buyer_request where request_date >= '" + date1 + "' AND request_date<= '" + date2
 				+ "'";
 		List<BuyerRequest> orders = template.query(sql, new BeanPropertyRowMapper(BuyerRequest.class));
@@ -60,9 +59,9 @@ public class AdminDaoImpl implements AdminDao {
 	}
 
 	public void generateReportForBuyer(LocalDate date1, LocalDate date2) throws Exception {
-		List<BuyerRequest> orders=viewReportForBuyer(date1, date2);
+		List<BuyerRequest> orders = viewReportForBuyer(date1, date2);
 		XSSFWorkbook workbook = new XSSFWorkbook();
-		XSSFSheet spreadsheet = workbook.createSheet("buyer_report_"+date1+"-"+date2);
+		XSSFSheet spreadsheet = workbook.createSheet("buyer_report_" + date1 + "-" + date2);
 
 		XSSFRow row = spreadsheet.createRow(1);
 		XSSFCell cell;
@@ -123,10 +122,10 @@ public class AdminDaoImpl implements AdminDao {
 		workbook.write(out);
 		out.close();
 	}
-	
+
 	@Override
 	public void generateReportForVendor(LocalDate date1, LocalDate date2) throws Exception {
-		List<VendorRequest> vendorRequests = getVendorCollectionsBetweenTwoDates(date1,date2);
+		List<VendorRequest> vendorRequests = getVendorCollectionsBetweenTwoDates(date1, date2);
 		XSSFWorkbook workbook = new XSSFWorkbook();
 		XSSFSheet spreadsheet = workbook.createSheet("vendor_report");
 
@@ -183,6 +182,6 @@ public class AdminDaoImpl implements AdminDao {
 		workbook.write(out);
 		out.close();
 		System.out.println("VENDORS_REPORT.xlsx downloaded successfully");
-		
+
 	}
 }

@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>User</title>
+<title>Recycle Management System</title>
 <link rel="stylesheet" href="/css/styles.css">
 <link href="webjars/bootstrap/3.3.6/css/bootstrap.min.css"
 	rel="stylesheet">
@@ -25,7 +25,7 @@
 
 			<div class="navbar-header">
 				<button class="btn btn-info btn-lg" id="goback"
-					onclick="history.go(-1);">
+					onclick="goToUserPage()">
 					<span class="glyphicon glyphicon-arrow-left"></span> Go Back
 				</button>
 			</div>
@@ -42,45 +42,50 @@
 		</div>
 		<form:form method="POST" action="welcomeUser" modelAttribute="request">
 			<tr>
-					<td><form:hidden path="requestId" id="id" /></td>
-				</tr>
+				<td><form:hidden path="requestId" id="id" /></td>
+			</tr>
 			<table class="table">
-				
+
 				<tr>
 					<td><form:label path="typeOfOrg">Type of Organization: </form:label></td>
-					<td><form:radiobutton path="typeOfOrg" value="Restaurant" required="required"/>Restaurant</td>
-					<td><form:radiobutton path="typeOfOrg" value="Hostel" required="required"/>Hostel</td>
+					<td><form:radiobutton path="typeOfOrg" value="Restaurant"
+							required="required" />Restaurant <form:radiobutton
+							path="typeOfOrg" value="Hostel" required="required" />Hostel</td>
 				</tr>
 				<tr>
 					<td><form:label path="amount">Amount of Manure: </form:label></td>
-					<td><form:input path="amount" id="amount" required="required"/></td>
+					<td><form:input type="number" path="amount" id="amount"
+							required="required" /></td>
 
 				</tr>
 				<tr>
 					<td><form:label path="location">Location: </form:label></td>
-					<td><form:input path="location" id="location" required="required"/></td>
+					<td><form:input path="location" id="location"
+							required="required" /></td>
 
 				</tr>
 				<tr>
 					<td><form:label path="requiredDate">Date: </form:label></td>
-					<td><form:input type="date" path="requiredDate" min="${date}" required="required"/></td>
+					<td><form:input type="date" path="requiredDate" min="${date}"
+							required="required" /></td>
 
 				</tr>
 				<tr>
 					<td><form:label path="time">Time: </form:label></td>
-					<td><form:input path="time" required="required"/></td>
+					<td><form:input path="time" required="required" /></td>
 
 				</tr>
 
 				<tr>
-					<td><button id="btn-success" type="submit" id="submit" name="submit">Submit</button></td>
-					<td><button id="btn-clear" type="reset" id="reset" name="reset">Clear</button></td>
+					<td><button id="btn-success" type="submit" id="submit"
+							name="submit">Submit</button></td>
+					<td><button id="btn-clear" type="reset" id="reset"
+							name="reset">Clear</button></td>
 				</tr>
 
 			</table>
 		</form:form>
-		</div>
-		<script type="text/javascript" src="js/validateUser.js"></script>
-		<script type="text/javascript" src="js/script.js"></script>
+	</div>
+	<script type="text/javascript" src="js/script.js"></script>
 </body>
 </html>

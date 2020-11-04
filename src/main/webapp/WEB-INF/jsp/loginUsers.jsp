@@ -1,23 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1" isELIgnored="false"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<link rel="stylesheet" href="/css/styles.css">
 <link href="webjars/bootstrap/3.3.6/css/bootstrap.min.css"
 	rel="stylesheet">
-<link rel="stylesheet" href="/css/styles.css">
-<title>MANAGER</title>
+<meta charset="ISO-8859-1">
+<title>USER LOGIN</title>
 </head>
 <body>
-
-	<nav class="navbar navbar-custom">
+	<nav class="navbar navbar-default bg-success navbar-dark">
 		<div class="container-fluid">
 
 			<div class="navbar-header navbar-right">
 				<a href="/recycleManagementHomePage">
 					<button onclick="myFunctionHomePage()" class="btn btn-info btn-lg">
-						<span class="glyphicon glyphicon-log-out"></span> Homepage
+						<span class="glyphicon glyphicon-log-out"></span> HomePage
 					</button>
 				</a>
 			</div>
@@ -29,39 +32,29 @@
 				</button>
 			</div>
 
-			<div class="navbar-custom" style="text-align: center">
+			<div class="navbar-custom" style="text-align: center;">
 				<span class="navbar-style">Recycle Management System</span>
 			</div>
 
 		</div>
 	</nav>
-
 	<div class="container content">
 		<div style="background: rgb(139, 0, 139);" class="jumbotron heading">
-			<h1 style="color: white; text-align: center">Manager Login</h1>
+			<h1 style="color: white; text-align: center">User Login</h1>
 		</div>
-
-
-		<br> <br>
-
-		<form method="POST" action="validatemanager">
+		<font color="red">${message}</font>
+		<form method="post" action="/loginUser">
 			<span class="border border-secondary">
 				<table class="table">
 					<tr>
-						<td><label class="label label-primary" for="email">Email
-								Address:</label></td>
-						<td><input id="email" name="email" class="form-control"
-							placeholder="Enter Email" required="required" /></td>
-					</tr>
-					<tr>
-						<td><small class="form-text text-muted">example@gmail.com</small></td>
-						<td></td>
+						<td><label class="label label-primary" for="name">Email:</label></td>
+						<td><input type="text" name="email" class="form-control"
+							required="required" /></td>
 					</tr>
 					<tr>
 						<td><label class="label label-primary" for="password">Password:</label></td>
-						<td><input name="password" id="password" type="password"
-							class="form-control" placeholder="Enter Password"
-							required="required" /></td>
+						<td><input type="password" name="password"
+							class="form-control" required="required" /></td>
 					</tr>
 					<tr>
 						<td><button class="btn btn-success" type="submit" id="submit"
@@ -70,7 +63,6 @@
 								name="reset">Clear</button></td>
 					</tr>
 				</table>
-			</span>
 		</form>
 		<script type="text/javascript" src="js/script.js"></script>
 </body>

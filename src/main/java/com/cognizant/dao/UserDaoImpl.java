@@ -27,11 +27,19 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	public int insertIntoDb(User user) {
-		
-		String query = "insert into user values('" + user.getFirstName() + "','" + user.getLastName() + "','"
-				+ user.getEmail() + "','" + user.getPhoneNumber() + "','" + user.getPassword() + "','"
-				+ user.getGender() + "')";
-		return template.update(query);
+
+		String checkEmail = "select count(*) from user where email='" + user.getEmail() + "'";
+		int i = template.queryForObject(checkEmail, Integer.class);
+		if (i < 1) {
+			String insertQuery = "insert into user values('" + user.getFirstName() + "','" + user.getLastName() + "','"
+					+ user.getEmail() + "','" + user.getPhoneNumber() + "','" + user.getPassword() + "','"
+					+ user.getGender() + "')";
+			int executed = template.update(insertQuery);
+			return executed;
+		} else {
+			return -1;
+		}
+
 	}
 
 	public int validate(String email, String password) {
@@ -67,8 +75,8 @@ public class UserDaoImpl implements UserDao {
 		buyerRequest.setPaidAmount(amount);
 		String query = "insert into buyer_request values(" + buyerRequest.getRequestId() + ",'" + email + "',"
 				+ buyerRequest.getQuantity() + "," + buyerRequest.getAmount() + ",'" + buyerRequest.getLocation()
-				+ "','" + date + "','" + buyerRequest.getRequiredDate() + "','"+date+"', 'Order Received',"
-				+ buyerRequest.getPaidAmount()+")";
+				+ "','" + date + "','" + buyerRequest.getRequiredDate() + "','" + date + "', 'Order Received',"
+				+ buyerRequest.getPaidAmount() + ")";
 		return template.update(query);
 	}
 

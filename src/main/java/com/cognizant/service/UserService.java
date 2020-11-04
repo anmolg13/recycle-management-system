@@ -21,6 +21,7 @@ public class UserService {
 	}
 
 	public int insertIntoDb(User user) {
+		// System.out.print("Service"+userDao.insertIntoDb(user));
 		return userDao.insertIntoDb(user);
 	}
 

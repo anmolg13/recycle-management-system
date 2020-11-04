@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class LogoutController {
 
-		@RequestMapping(value = "/logout",method = RequestMethod.GET)
-		public String logout(HttpServletRequest request,HttpServletResponse response) {
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	public String logout(HttpServletRequest request, HttpServletResponse response) {
 
-			request.getSession().invalidate();
+		request.getSession().invalidate();
 
 		return "redirect:/";
 	}

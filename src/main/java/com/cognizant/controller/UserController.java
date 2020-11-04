@@ -52,7 +52,6 @@ public class UserController {
 		return list;
 	}
 
-
 	@RequestMapping(value = "/userHomePage", method = RequestMethod.GET)
 	public String userHomePage(ModelMap model) {
 		return "user";
@@ -74,16 +73,19 @@ public class UserController {
 			return "userRegistration";
 
 		} else {
-			service.insertIntoDb(user);
-			LOGGER.info("end");
-			return "userRegistrationSuccessful";
+			// System.out.print("Controller"+service.insertIntoDb(user));
+			if (service.insertIntoDb(user) == -1) {
+				return "userRegistrationFailed";
+			} else {
+				return "userRegistrationSuccessful";
+			}
 		}
 	}
 
 	@RequestMapping(value = "/loginUser", method = RequestMethod.GET)
 	public String showLoginPage(ModelMap model) {
 		// model.put("name",name);
-		return "loginUser";
+		return "loginUsers";
 	}
 
 	@RequestMapping(value = "/loginUser", method = RequestMethod.POST)
@@ -93,7 +95,7 @@ public class UserController {
 		if (!isValidUser) {
 			model.put("message", "Invalid Credentials/Please Register first");
 			LOGGER.info("End");
-			return "loginUser";
+			return "loginUsers";
 		}
 
 		// model.put("name",email);
@@ -257,6 +259,11 @@ public class UserController {
 
 		service.updatePayment2(requestId, totamount);
 		model.put("paySuccess", "Payment Successful");
+		return "welcomeUser";
+	}
+
+	@RequestMapping(value = "/userOptions")
+	public String openAdmin() {
 		return "welcomeUser";
 	}
 

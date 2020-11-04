@@ -141,6 +141,11 @@ function managerValidate()
 	window.location="/recycleManagementHomePage";
 	}
 	
+	function myFunctionHomePage()
+	{
+	window.location="/recycleManagementHomePage";
+	}
+	
 	function editvendorrequest(reqId)
 	{
 	var status = document.getElementById("status");
@@ -189,4 +194,15 @@ function managerValidate()
 
 	}
 	
+	function goToAdminPage(){
+	window.location="/adminOptions";
+	}
+	
+	function goToUserPage(){
+	window.location="/userOptions";
+	}
+	
+	function paymentSuccess(){
+	alert("Payment successful");
+	}
 	

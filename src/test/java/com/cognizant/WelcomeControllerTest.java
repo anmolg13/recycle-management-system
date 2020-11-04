@@ -21,19 +21,11 @@ public class WelcomeControllerTest {
 		this.mockMvcWelcome = MockMvcBuilders.standaloneSetup(new WelcomeController()).build();
 	}
 
+	// Test App Home Page
 	@Test
 	public void testAppHomePage() throws Exception {
 		this.mockMvcWelcome.perform(get("/recycleManagementHomePage")).andExpect(status().isOk())
 				.andExpect(view().name("homePage")).andDo(MockMvcResultHandlers.print()).andReturn();
 	}
-
-//    @Test
-//    public void testBuyerRequest() throws Exception {
-//        this.mockMvcBuyerRequest.perform(get("/viewOrders"))
-//                .andExpect(status().isOk())
-//                .andExpect(view().name("buyerOrders"))
-//                .andDo(MockMvcResultHandlers.print())
-//                .andReturn();
-//    }
 
 }

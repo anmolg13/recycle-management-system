@@ -13,50 +13,41 @@ public class ManagerService {
 
 	@Autowired
 	ManagerDao managerDao;
-	
+
 	public ManagerService(ManagerDao managerDao) {
-		this.managerDao=managerDao;
+		this.managerDao = managerDao;
 	}
-	
-	public int saveManager(Manager manager)
-	{
+
+	public int saveManager(Manager manager) {
 		return managerDao.saveManager(manager);
 	}
-	
-	public boolean checkManagerCredentials(String email, String password)
-	{
+
+	public boolean checkManagerCredentials(String email, String password) {
 		return managerDao.checkManagerCredentials(email, password);
 	}
-	
-	public List getVendorRequests()
-	{
+
+	public List getVendorRequests() {
 		return managerDao.getVendorRequests();
 	}
-	
-	public int changeStatus(int requestId, String status)
-	{
+
+	public int changeStatus(int requestId, String status) {
 		return managerDao.changeStatus(requestId, status);
 	}
-	
-	public List getManagerDetails()
-	{
+
+	public List getManagerDetails() {
 		return managerDao.getManagerDetails();
 	}
-	
-	public int changeManagerApproval(String email, String approve)
-	{
+
+	public int changeManagerApproval(String email, String approve) {
 		return managerDao.changeApproval(email, approve);
 	}
-	
-	public String getManagerNameWithEmail(String email)
-	{
+
+	public String getManagerNameWithEmail(String email) {
 		List<Manager> allManagers = managerDao.getManagerDetails();
-		String name="";
-		for(Manager mg: allManagers)
-		{
-			if(mg.getEmail().equals(email))
-			{		
-				name=mg.getFirstName()+" "+mg.getLastName();
+		String name = "";
+		for (Manager mg : allManagers) {
+			if (mg.getEmail().equals(email)) {
+				name = mg.getFirstName() + " " + mg.getLastName();
 				break;
 			}
 		}

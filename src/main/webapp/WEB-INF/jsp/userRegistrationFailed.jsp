@@ -1,25 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>MANAGER</title>
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
-	integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu"
-	crossorigin="anonymous">
+<title>User Registration</title>
 <link rel="stylesheet" href="/css/styles.css">
+<link href="webjars/bootstrap/3.3.6/css/bootstrap.min.css"
+	rel="stylesheet">
 </head>
 <body>
-
-	<nav class="navbar navbar-custom">
+	<nav class="navbar navbar-default bg-success navbar-dark">
 		<div class="container-fluid">
 
 			<div class="navbar-header navbar-right">
-				<button onclick="logout()" class="btn btn-info btn-lg">
-					<span class="glyphicon glyphicon-log-out"></span> Log out
-				</button>
+				<a href="/recycleManagementHomePage">
+					<button onclick="myFunctionHomePage()" class="btn btn-info btn-lg">
+						<span class="glyphicon glyphicon-log-out"></span> Home Page
+					</button>
+				</a>
 			</div>
 
 			<div class="navbar-header">
@@ -32,11 +33,16 @@
 			<div class="navbar-custom" style="text-align: center;">
 				<span class="navbar-style">Recycle Management System</span>
 			</div>
+
 		</div>
 	</nav>
 
-	<div class="alert alert-success" role="alert" align="center">Manager
-		Approval Status Changed Successfully</div>
+	<div class="container">
+		<table>
+			<div class="alert alert-danger" role="alert" align="center">User
+				With The Given Email Already Exists.</div>
+		</table>
+	</div>
 	<script type="text/javascript" src="js/script.js"></script>
 </body>
 </html>

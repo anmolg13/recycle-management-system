@@ -6,35 +6,38 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>User</title>
+<title>Recycle Management System</title>
 <link rel="stylesheet" href="/css/styles.css">
-	<link href="webjars/bootstrap/3.3.6/css/bootstrap.min.css"
+<link href="webjars/bootstrap/3.3.6/css/bootstrap.min.css"
 	rel="stylesheet">
 </head>
 <body>
-<nav class="navbar navbar-default bg-success navbar-dark">
-  <div class="container-fluid">
-  
-    <div class="navbar-header navbar-right">
-      <a href="/recycleManagementHomePage">  <button onclick="myFunction()" class="btn btn-info btn-lg">
-          <span class="glyphicon glyphicon-log-out"></span> Log out
-        </button></a>
-    </div>
-    
-      <div class="navbar-header">
-        <button class="btn btn-info btn-lg" id="goback" onclick = "history.go(-1);">
-          <span class="glyphicon glyphicon-arrow-left"></span> Go Back
-        </button>
-    </div>
+	<nav class="navbar navbar-default bg-success navbar-dark">
+		<div class="container-fluid">
 
-    <div class="navbar-custom" style="text-align:center;">
-        <span  class="navbar-style">Recycle Management System</span>
-    </div>
+			<div class="navbar-header navbar-right">
+				<a href="/recycleManagementHomePage">
+					<button onclick="myFunction()" class="btn btn-info btn-lg">
+						<span class="glyphicon glyphicon-log-out"></span> Log out
+					</button>
+				</a>
+			</div>
 
-    </div>
-</nav>
+			<div class="navbar-header">
+				<button class="btn btn-info btn-lg" id="goback"
+					onclick="goToAdminPage()">
+					<span class="glyphicon glyphicon-arrow-left"></span> Go Back
+				</button>
+			</div>
+
+			<div class="navbar-custom" style="text-align: center;">
+				<span class="navbar-style">Recycle Management System</span>
+			</div>
+
+		</div>
+	</nav>
 	<div class="container">
-		<h1 style="text-align:center">Wastage Report</h1>
+		<h1 style="text-align: center">Wastage Report</h1>
 		<table class="table table-striped">
 			<form method="POST" action="/wastageReport">
 				<b>${msg}</b> <b>${msg2}</b>

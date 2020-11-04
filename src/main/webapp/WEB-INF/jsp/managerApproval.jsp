@@ -9,7 +9,7 @@
 	integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu"
 	crossorigin="anonymous">
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>MANAGER</title>
 <link rel="stylesheet" href="/css/styles.css">
 <link href="webjars/bootstrap/3.3.6/css/bootstrap.min.css"
 	rel="stylesheet">
@@ -28,7 +28,7 @@
 
 			<div class="navbar-header">
 				<button class="btn btn-info btn-lg" id="goback"
-					onclick="history.go(-1);">
+					onclick="goToAdminPage()">
 					<span class="glyphicon glyphicon-arrow-left"></span> Go Back
 				</button>
 			</div>
@@ -41,44 +41,44 @@
 	</nav>
 	<div class="container">
 
-	<div align="center">
+		<div align="center">
 
-		<h1>Approve Manager</h1>
+			<h1>Approve Manager</h1>
 
-		<table class="table table-striped">
-			<tr>
-				<th>FirstName</th>
-				<th>LastName</th>
-				<th>Email</th>
-				<th>Phone Number</th>
-				<th>Skills</th>
-				<th>Gender</th>
-				<th>Approved</th>
-				<th>Edit Approval</th>
-			</tr>
-
-			<c:forEach items="${managerdetails}" var="details">
+			<table class="table table-striped">
 				<tr>
-					<td>${details.firstName}</td>
-					<td>${details.lastName}</td>
-					<td>${details.contact}</td>
-					<td>${details.email}</td>
-					<td>${details.gender}</td>
-					<td>${details.skill}</td>
-					<td>${details.approval}</td>
-					<td><a type="button" class="btn btn-success"
-						href="/submitapproval?email=${details.email}&approve=Yes">Yes</a>
-						<a type="button" class="btn btn-danger"
-						href="/submitapproval?email=${details.email}&approve=No">No</a></td>
+					<th>FirstName</th>
+					<th>LastName</th>
+					<th>Email</th>
+					<th>Phone Number</th>
+					<th>Skills</th>
+					<th>Gender</th>
+					<th>Approved</th>
+					<th>Edit Approval</th>
 				</tr>
-			</c:forEach>
 
-		</table>
+				<c:forEach items="${managerdetails}" var="details">
+					<tr>
+						<td>${details.firstName}</td>
+						<td>${details.lastName}</td>
+						<td>${details.contact}</td>
+						<td>${details.email}</td>
+						<td>${details.gender}</td>
+						<td>${details.skill}</td>
+						<td>${details.approval}</td>
+						<td><a type="button" class="btn btn-success"
+							href="/submitapproval?email=${details.email}&approve=Yes">Yes</a>
+							<a type="button" class="btn btn-danger"
+							href="/submitapproval?email=${details.email}&approve=No">No</a></td>
+					</tr>
+				</c:forEach>
 
-		<br> <br>
+			</table>
 
-	</div>
+			<br> <br>
 
-	<script type="text/javascript" src="js/script.js"></script>
+		</div>
+
+		<script type="text/javascript" src="js/script.js"></script>
 </body>
 </html>

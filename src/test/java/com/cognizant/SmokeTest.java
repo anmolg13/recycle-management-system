@@ -13,6 +13,7 @@ import com.cognizant.controller.ManagerController;
 import com.cognizant.controller.UserController;
 import com.cognizant.controller.WelcomeController;
 
+//Test whether the controllers are getting started or not
 @SpringBootTest
 public class SmokeTest {
 

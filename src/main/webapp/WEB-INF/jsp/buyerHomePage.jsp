@@ -22,10 +22,11 @@
     </div>
     
       <div class="navbar-header">
-        <button class="btn btn-info btn-lg" id="goback" onclick = "history.go(-1);">
-          <span class="glyphicon glyphicon-arrow-left"></span> Go Back
-        </button>
-    </div>
+				<button class="btn btn-info btn-lg" id="goback"
+					onclick="goToUserPage()">
+					<span class="glyphicon glyphicon-arrow-left"></span> Go Back
+				</button>
+			</div>
 
     <div class="navbar-custom" style="text-align:center;">
         <span  class="navbar-style">Recycle Management System</span>

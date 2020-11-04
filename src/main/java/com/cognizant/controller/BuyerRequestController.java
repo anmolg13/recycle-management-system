@@ -31,10 +31,11 @@ public class BuyerRequestController {
 		for (BuyerRequest order : orders) {
 			boolean ship = false;
 			boolean ready = false;
-			if ((order.getPaidAmount() - order.getAmount()) == 0) {
+			if ((order.getPaidAmount() - order.getAmount()) == 0
+					&& !(order.getStatus().equalsIgnoreCase("Order Shipped"))) {
 				due.add(0);
 				ship = true;
-			} else {
+			} else if ((order.getPaidAmount() - order.getAmount()) != 0) {
 				LocalDate orderDate = order.getRequestDate();
 				LocalDate today = LocalDate.now();
 				Period period = Period.between(orderDate, today);
@@ -44,19 +45,21 @@ public class BuyerRequestController {
 					due.add(0);
 					ready = true;
 				} else if (quantity >= 10 && quantity < 20) {
-					if (days > 2) {
+					if (days >= 2) {
 						due.add(0);
 						ready = true;
 					} else
 						due.add(2 - days);
 				} else {
-					if (days > 4) {
+					if (days >= 4) {
 						ready = true;
 						due.add(0);
 					} else {
 						due.add(4 - days);
 					}
 				}
+			} else {
+				due.add(0);
 			}
 			editToReady.add(ready);
 			editToShip.add(ship);

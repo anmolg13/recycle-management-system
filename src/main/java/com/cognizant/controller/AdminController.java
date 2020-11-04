@@ -25,7 +25,7 @@ public class AdminController {
 
 	@Autowired
 	AdminService adminservice;
-	
+
 	private static final Logger LOGGER = LogManager.getLogger(AdminController.class);
 
 	@RequestMapping(value = "/adminHomePage", method = RequestMethod.GET)
@@ -46,7 +46,7 @@ public class AdminController {
 		LOGGER.info("Admin Credentials are Valid , Going to Welcome Admin page  ");
 		return "welcomeAdmin";
 	}
-	
+
 	/* It provides list of requests in model object */
 	@RequestMapping(value = "/requests", method = RequestMethod.GET)
 	public String vendorRequestsDefault(Model m) {
@@ -60,6 +60,7 @@ public class AdminController {
 		m.addAttribute("date", LocalDate.now());
 		return "viewRequests";
 	}
+
 	@RequestMapping(value = "/requestOnDate", method = RequestMethod.GET)
 	public String vendorRequestsChosen(Model m,
 			@RequestParam("date") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date) {
@@ -72,8 +73,6 @@ public class AdminController {
 		m.addAttribute("date", date);
 		return "viewCollectionOnDate";
 	}
-
-
 
 	@RequestMapping(value = "/viewReportForBuyer", method = RequestMethod.GET)
 	public String generateBuyerReport(ModelMap model) {
@@ -105,24 +104,28 @@ public class AdminController {
 	}
 
 	@RequestMapping(value = "/downloadReportForBuyer", method = RequestMethod.GET)
-	public String generateBuyerReport2(ModelMap model,@RequestParam("date1") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date1,
+	public String generateBuyerReport2(ModelMap model,
+			@RequestParam("date1") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date1,
 			@RequestParam("date2") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date2, ModelMap mode)
 			throws Exception {
 		adminservice.generateReportForBuyer(date1, date2);
-		model.put("msg", "REPORT HAS BEEN DOWNLOADED AS SHEET buyer_report_"+date1+"-"+date2+" IN BUYERS_REPORT.xlsx");
+		model.put("msg",
+				"REPORT HAS BEEN DOWNLOADED AS SHEET buyer_report_" + date1 + "-" + date2 + " IN BUYERS_REPORT.xlsx");
 		return "downloadReport";
 	}
-	
-	@RequestMapping(value = "/wastageReport",method=RequestMethod.GET)
+
+	@RequestMapping(value = "/wastageReport", method = RequestMethod.GET)
 	public String wastageReportDateCollection(Model m) {
 		m.addAttribute("yesterday", LocalDate.now().minusDays(1));
 		return "wastageReportHome";
 
 	}
-	
-	@RequestMapping(value = "/wastageReport",method=RequestMethod.POST)
-	public String wastageReportCollectionDisplay(@RequestParam("startdate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate startdate,
-			@RequestParam("enddate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate enddate, ModelMap model,Model m) {
+
+	@RequestMapping(value = "/wastageReport", method = RequestMethod.POST)
+	public String wastageReportCollectionDisplay(
+			@RequestParam("startdate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate startdate,
+			@RequestParam("enddate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate enddate, ModelMap model,
+			Model m) {
 		model.put("startdate", startdate);
 		model.put("enddate", enddate);
 		m.addAttribute("yesterday", LocalDate.now().minusDays(1));
@@ -130,7 +133,7 @@ public class AdminController {
 			model.put("status", false);
 			model.put("msg", "To date should be greater than From Date");
 		} else {
-			List<VendorRequest> list = adminservice.getVendorCollectionsBetweenTwoDates(startdate,enddate);
+			List<VendorRequest> list = adminservice.getVendorCollectionsBetweenTwoDates(startdate, enddate);
 			if (list.isEmpty()) {
 				model.put("msg2", "No Records Found");
 			} else {
@@ -140,13 +143,18 @@ public class AdminController {
 		}
 		return "wastageReportHome";
 	}
-	
+
 	@RequestMapping(value = "/downloadReportForVendor", method = RequestMethod.GET)
-	public String generateVendorCollectionReport(ModelMap model,@RequestParam("startdate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate startdate,
-			@RequestParam("enddate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate enddate)
-			throws Exception {
+	public String generateVendorCollectionReport(ModelMap model,
+			@RequestParam("startdate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate startdate,
+			@RequestParam("enddate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate enddate) throws Exception {
 		adminservice.generateReportForVendor(startdate, enddate);
 		model.put("msg", "REPORT HAS BEEN DOWNLOADED AS VENDORS_REPORT.xlsx.");
 		return "downloadReportVendor";
+	}
+
+	@RequestMapping(value = "/adminOptions")
+	public String openAdmin() {
+		return "welcomeAdmin";
 	}
 }

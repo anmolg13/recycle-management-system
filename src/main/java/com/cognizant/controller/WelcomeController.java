@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class WelcomeController {
-	
+
 	@RequestMapping(value = "/recycleManagementHomePage", method = RequestMethod.GET)
 	public String homePage(ModelMap model) {
 		return "homePage";
